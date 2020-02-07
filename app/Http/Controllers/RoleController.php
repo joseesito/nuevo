@@ -13,8 +13,8 @@ use DB;
 
 class RoleController extends Controller
 {
-   
-    
+
+
     function __construct()
     {
          $this->middleware('permission:role-list');
@@ -24,7 +24,7 @@ class RoleController extends Controller
     }
 
 
-    
+
     public function index(Request $request)
     {
         $roles = Role::orderBy('id','DESC')->paginate(5);
@@ -33,7 +33,7 @@ class RoleController extends Controller
     }
 
 
-    
+
     public function create()
     {
         $permission = Permission::get();
@@ -41,7 +41,7 @@ class RoleController extends Controller
     }
 
 
-   
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -57,7 +57,7 @@ class RoleController extends Controller
         return redirect()->route('roles.index')
                         ->with('success','Role created successfully');
     }
-   
+
     public function show($id)
     {
         $role = Role::find($id);
@@ -70,7 +70,7 @@ class RoleController extends Controller
     }
 
 
-   
+
     public function edit($id)
     {
         $role = Role::find($id);
@@ -84,7 +84,7 @@ class RoleController extends Controller
     }
 
 
-  
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -104,7 +104,7 @@ class RoleController extends Controller
         return redirect()->route('roles.index')
                         ->with('success','Role updated successfully');
     }
-   
+
     public function destroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
