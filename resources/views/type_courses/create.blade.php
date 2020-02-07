@@ -9,10 +9,10 @@
 <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Agregar Nuevo Curso</h2>
+                <h2>Agregar Tipo de Curso</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('cursos.index') }}"> Volver</a>
+                <a class="btn btn-primary" href="{{ route('type_courses.index') }}"> Volver</a>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
     @endif
 
 
-    <form action="{{ route('cursos.store') }}" method="POST">
+    <form action="{{ route('type_courses.store') }}" method="POST">
     	@csrf
 
 
@@ -41,11 +41,10 @@
 		            <input type="text" name="name" class="form-control" placeholder="Name">
 		        </div>
 		    </div>
-		    <div class="col-xs-12 col-sm-12 col-md-12">
-		        <div class="form-group">
-		            <strong>Estado:</strong>
-		            <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea>
-		        </div>
+            <div class="text-center">
+		            <button type="submit" class="btn btn-primary">Agregar</button>
+		    </div>
+        </div>
 		    
     </form>
 @stop
