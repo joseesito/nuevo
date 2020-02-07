@@ -22,15 +22,15 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->string('hours');
             $table->string('grade_min');
-            $table->decimal('price',6,2);
-            $table->string('free');
+            $table->decimal('price',6,2)->nullable();
+            $table->string('free')->default(0);
             $table->string('validity');
             $table->string('type_validity');
-            $table->string('certificate');
+            $table->string('certificate')->default(1);
             $table->bigInteger('user_created')->nullable();
             $table->bigInteger('user_modified')->nullable();
             $table->bigInteger('user_deleted')->nullable();
-            $table->string('state')->default(1);
+            $table->string('state');
             $table->timestamps();
         });
     }

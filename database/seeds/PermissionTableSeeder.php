@@ -7,7 +7,8 @@ class PermissionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
+     * php artisan db:seed --class=PermissionTableSeeder
+
      * @return void
      */
     public function run()
@@ -33,6 +34,10 @@ class PermissionTableSeeder extends Seeder
             'unity-create',
             'unity-edit',
             'unity-delete',
+            'type_course-list',
+            'type_course-create',
+            'type_course-edit',
+            'type_course-delete',
         ];
 
         foreach ($permissions as $permission) {

@@ -64,7 +64,12 @@ return [
         
         [
             'text' => 'Curso',
-            'url' => 'roles',
+            'url' => 'courses',
+            'icon' => 'fa fa-list-alt"'
+        ],
+        [
+            'text' => 'Tipo Curso',
+            'url' => 'type_courses',
             'icon' => 'fa fa-list-alt"'
         ],
         

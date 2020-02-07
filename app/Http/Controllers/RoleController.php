@@ -13,8 +13,6 @@ use DB;
 
 class RoleController extends Controller
 {
-
-
     function __construct()
     {
          $this->middleware('permission:role-list');
@@ -22,8 +20,6 @@ class RoleController extends Controller
          $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
-
-
 
     public function index(Request $request)
     {
