@@ -24,11 +24,11 @@ return [
 
     'layout' => null,
 
-   
+
     //URLSs
     'collapse_sidebar' => false,
 
-    
+
     'dashboard_url' => 'home',
 
     'logout_url' => 'logout',
@@ -43,26 +43,26 @@ return [
 
     'menu' => [
         'ADMINISTRADOR',
-        
+
         [
             'text' => 'Inicio',
             'url' => 'home',
             'icon' => 'fas fa-fw fas fa-home'
         ],
-        
+
         [
             'text' => 'Unidades Mineras',
-            'url' => 'roles',
+            'url' => 'unities',
             'icon' => 'fas fa-fw far fa-building'
         ],
-        
+
 
         [
             'text' => 'Compañias',
-            'url' => 'roles',
+            'url' => 'companies',
             'icon' => 'fas fa-fw far fa-building'
         ],
-        
+
         [
             'text' => 'Curso',
             'url' => 'courses',
@@ -73,8 +73,8 @@ return [
             'url' => 'type_courses',
             'icon' => 'fa fa-list-alt"'
         ],
-        
-        
+
+
         'CONFIGURACIÓN',
 
         [
@@ -97,14 +97,14 @@ return [
             'url' => 'roles',
             'icon' => 'fas fa-fw fa-unlock-alt'
         ],
-        
-    
+
+
 ],
 
 
-  
+
     // Menu Filters
-    
+
 
     'filters' => [
         JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,

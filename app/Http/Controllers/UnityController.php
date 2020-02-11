@@ -24,11 +24,8 @@ class UnityController extends Controller
      */
     public function index()
     {
-        $unity=DB::table('unities as un')
-        ->select('un.id','un.name','un.address')
-        ->where('cu.state','=',1)
-        ->get();
-        return view('unity.index',compact('unity'));
+        $unities = Unity::where('state',1)->get();
+        return view('unity.index',compact('unities'));
     }
 
     /**
@@ -49,11 +46,10 @@ class UnityController extends Controller
      */
     public function store(Request $request)
     {
-        $unities =  new Unity;
-        $unities->name = $request->name;
-        $unities->address=$request->address;
-        $course->save;
-        return redirect()->route('unity.index')->with('succes','La unidad fue agregada');
+        $unity =  new Unity;
+        $unity->name = $request->name;
+        $unity->save();
+        return redirect()->route('unities.index')->with('success','La Unidad Minera "' . $unity->name .  '" fue registrado correctamente');
     }
 
     /**
@@ -62,20 +58,20 @@ class UnityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Unity $unity)
     {
-        return view('unity.index');
+        return view('unity.show', compact('unity'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Unity $unity
      * @return \Illuminate\Http\Response
      */
-    public function edit($unities)
+    public function edit(Unity $unity)
     {
-        return view('unity.edit', compact('unities'))
+        return view('unity.edit', compact('unity'));
     }
 
     /**
@@ -87,11 +83,11 @@ class UnityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $unity = Unity::find($id);
+        $unity = Unity::findOrFail($id);
         $unity->name = $request->name;
-        $unity->address = $request->address;
         $unity->save();
-        return redirect()->route('unity.index')->with('succes','Unidad fue actualizada');
+
+        return redirect()->route('unities.index')->with('success','La Unidad Minera "' . $unity->name . ' " fue actualizada correctamente.');
     }
 
     /**
@@ -102,6 +98,6 @@ class UnityController extends Controller
      */
     public function destroy($id)
     {
-        $course =Course:.find($id)
+        $unity = Unity::findOrFail($id);
     }
 }

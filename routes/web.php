@@ -21,13 +21,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
 
-    Route::resource('Unity','UnityController');
-    Route::resource('Company','CompanyController');
+    Route::resource('companies','CompanyController');
+    Route::resource('unities','UnityController');
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
     Route::resource('products','ProductController');
     Route::resource('courses','CourseController');
     Route::resource('type_courses','TipoCourseController');
     Route::resource('inscriptions','InscriptionController');
-    // Route::resources('locations','LocationController');
+    Route::resource('locations','LocationController');
 });
