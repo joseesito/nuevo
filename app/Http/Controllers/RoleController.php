@@ -28,15 +28,11 @@ class RoleController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-
-
     public function create()
     {
         $permission = Permission::get();
         return view('roles.create',compact('permission'));
     }
-
-
 
     public function store(Request $request)
     {
@@ -45,10 +41,8 @@ class RoleController extends Controller
             'permission' => 'required',
         ]);
 
-
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
-
 
         return redirect()->route('roles.index')
                         ->with('success','Role created successfully');
@@ -61,11 +55,8 @@ class RoleController extends Controller
             ->where("role_has_permissions.role_id",$id)
             ->get();
 
-
         return view('roles.show',compact('role','rolePermissions'));
     }
-
-
 
     public function edit($id)
     {
@@ -75,11 +66,8 @@ class RoleController extends Controller
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
 
-
         return view('roles.edit',compact('role','permission','rolePermissions'));
     }
-
-
 
     public function update(Request $request, $id)
     {
@@ -88,14 +76,11 @@ class RoleController extends Controller
             'permission' => 'required',
         ]);
 
-
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
 
-
         $role->syncPermissions($request->input('permission'));
-
 
         return redirect()->route('roles.index')
                         ->with('success','Role updated successfully');
