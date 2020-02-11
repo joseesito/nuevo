@@ -14,6 +14,12 @@ use Hash;
 
 class UserController extends Controller
 {
+    function __construct(){
+        $this->middleware('permission:course-list');
+        $this->middleware('permission:course-create',['only'=>['create','store']]);
+        $this->middleware('permission:course-edit',['only'=>['edit','update']]);
+        $this->middleware('permission:course-delete',['only'=>['destroy']]);
+    }
     //listarrr
     public function index(Request $request)
     {

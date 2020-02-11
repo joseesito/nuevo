@@ -75,11 +75,10 @@ class TipoCourseController extends Controller
     }
 
     
-    public function destroy(Request $tcursos)
+    public function destroy(Request $request, $id)
     {
         
-        
-        $course = Course::find($id);
+        $course = TypeCourse::find($id);
         $cours = DB::table('type_courses')
         ->where('id','=',$id)
         ->where('state','=','0')

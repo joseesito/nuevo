@@ -17,7 +17,7 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $course=DB::table('courses as cu')
-        ->select('cu.id','cu.name','cu.hours','type_courses.name as nametype_course','cu.validity')
+        ->select('cu.id','cu.name','cu.hours','type_courses.name as nametype_course','cu.validity','cu.grade_min','cu.type_validity')
         ->join('type_courses','type_courses.id','=','cu.type_course_id')
         ->where('cu.state','=',0)
         

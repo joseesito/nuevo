@@ -15,7 +15,7 @@ class CreateInscriptionUserTable extends Migration
     {
         Schema::create('inscription_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('id_inscriptions');
             $table->foreign('course_id')->references('id')->on('courses')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('user_id');

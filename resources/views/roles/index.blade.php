@@ -13,9 +13,9 @@
             <h2>Role Management</h2>
         </div>
         <div class="pull-right">
-        
+        @can('role-create')
             <a class="btn btn-success" href="{{ route('roles.create') }}"> Crear nuevo Role</a>
-           
+        @endcan   
         </div>
     </div>
 </div>
@@ -39,10 +39,14 @@
         <td>{{ ++$i }}</td>
         <td>{{ $role->name }}</td>
         <td>
+
+            @can('role-list')
             <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Mostrar</a>
+            @endcan
             @can('role-edit')
                 <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
             @endcan
+           
             @can('role-delete')
                 {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
