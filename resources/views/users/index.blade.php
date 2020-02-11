@@ -12,7 +12,9 @@
             <h2>Usuarios Administrar</h2>
         </div>
         <div class="pull-right">
+        @can('user-create')
             <a class="btn btn-success" href="{{ route('users.create') }}"> Crear nuevo User</a>
+        @endcan    
         </div>
     </div>
 </div>
@@ -46,10 +48,16 @@
       @endif
     </td>
     <td>
+       @can('user-list')
        <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Mostrar</a>
+       @endcan
+       @can('user-edit')
        <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Editar</a>
+       @endcan
         {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
+        @can('user-delete')
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+        @endcan
         {!! Form::close() !!}
     </td>
   </tr>

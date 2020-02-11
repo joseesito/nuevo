@@ -43,6 +43,7 @@ return [
 
     'menu' => [
         'ADMINISTRADOR',
+        
         [
             'text' => 'Inicio',
             'url' => 'home',
@@ -84,6 +85,11 @@ return [
         [
             'text' => 'Roles',
             'url' => 'roles',
+            'icon' => 'fas fa-fw fa-list'
+        ],
+        [
+            'text' => 'Inscripciones',
+            'url' => 'inscriptions',
             'icon' => 'fas fa-fw fa-list'
         ],
         [

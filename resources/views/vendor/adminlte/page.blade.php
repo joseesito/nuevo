@@ -101,7 +101,7 @@
         </aside>
         @endif
 
-        <!-- Content Wrapper. Contains page content -->
+        <!-- content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @if(config('adminlte.layout') == 'top-nav')
             <div class="container">
