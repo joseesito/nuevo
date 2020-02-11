@@ -59,9 +59,8 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>Curso</th>
             <th>lugar</th>
-            <th>Unidad</th>
+            <th>Curso</th>
             <th>Fecha Inicio</th>
             <th>Fecha Finalizada</th>
             <th>Hora</th>
@@ -72,10 +71,11 @@
         </tr>
 	    @foreach ($inscription as $inscriptio)
 	    <tr>
-	        <td>{{ $inscriptio->name }}</td>
-            <td>{{ $inscriptio->hours }}</td>   
+        <td>{{ $inscriptio->nameLocation }}</td>
+	        <td>{{ $inscriptio->nameinscription }}</td>
             <td>{{ $inscriptio->start_date}}</td>
             <td>{{ $inscriptio->end_date}}</td>
+            <td>{{ $inscriptio->hours }}</td>  
             <td>{{ $inscriptio->hours}}</td>
             <td>{{ $inscriptio->slot}}</td>
             @if($inscriptio->type_validity==1)

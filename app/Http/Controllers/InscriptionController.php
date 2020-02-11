@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Inscription;
+use App\Location;
 
 use App\User;
 class InscriptionController extends Controller
@@ -20,7 +21,7 @@ class InscriptionController extends Controller
     public function index()
     {
         $inscription =DB::table('inscriptions as in')
-        ->select('in.id','u.name as name','uni.name','in.address','in.time','in.name as name','in.hours',
+        ->select('in.id','u.name as name','lo.name as nameLocation','uni.name','in.address','in.time','in.name as nameinscription','in.hours',
         'in.grade_min','in.price','in.free','in.validity','in.type_validity','in.certificate','lo.name as namelocation','in.start_date',
         'in.end_date','in.slot',
         DB::raw('COUNT(UI.id) as alumnos_matriculados'))
