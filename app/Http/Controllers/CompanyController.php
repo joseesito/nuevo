@@ -2,21 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use Illuminate\Http\Request;
-use App\Unity;
 
-class UnityController extends Controller
+class CompanyController extends Controller
 {
-
-    function __construct(){
-        $this->middleware('permission:unity-list');
-        $this->middleware('permission:unity-create',['only'=>['create','store']]);
-        $this->middleware('permission:unity-edit',['only'=>['edit','update']]);
-        $this->middleware('permission:unityt-delete',['only'=>['destroy']]);
-    }
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +14,9 @@ class UnityController extends Controller
      */
     public function index()
     {
-        $unities = Unity::where('state',1)->get();
-        return view('unity.index',compact('unities'));
+        $compny = Company::get();
+
+        return view('companies.index', compact('company'));
     }
 
     /**
@@ -35,7 +26,7 @@ class UnityController extends Controller
      */
     public function create()
     {
-        return view('unity.create');
+        //
     }
 
     /**
@@ -46,10 +37,7 @@ class UnityController extends Controller
      */
     public function store(Request $request)
     {
-        $unity =  new Unity;
-        $unity->name = $request->name;
-        $unity->save();
-        return redirect()->route('unities.index')->with('success','La Unidad Minera "' . $unity->name .  '" fue registrado correctamente');
+        //
     }
 
     /**
@@ -58,20 +46,20 @@ class UnityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Unity $unity)
+    public function show($id)
     {
-        return view('unity.show', compact('unity'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Unity $unity
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Unity $unity)
+    public function edit($id)
     {
-        return view('unity.edit', compact('unity'));
+        //
     }
 
     /**
@@ -83,11 +71,7 @@ class UnityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $unity = Unity::findOrFail($id);
-        $unity->name = $request->name;
-        $unity->save();
-
-        return redirect()->route('unities.index')->with('success','La Unidad Minera "' . $unity->name . ' " fue actualizada correctamente.');
+        //
     }
 
     /**
@@ -98,6 +82,6 @@ class UnityController extends Controller
      */
     public function destroy($id)
     {
-        $unity = Unity::findOrFail($id);
+        //
     }
 }

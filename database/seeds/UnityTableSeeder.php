@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Unity;
 
 class UnityTableSeeder extends Seeder
 {
@@ -12,22 +13,22 @@ class UnityTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('unities')->insert([
-            'name'=>'Minsur',
+        Unity::insert([
+            'name'=>'Toquepala',
             'address' =>'empresa@ighgroup.com',
-            
         ]);
-        DB::table('unities')->insert([
-             'name' =>'Southern',
+        Unity::insert([
+             'name' =>'Quajome',
              'address' =>'empresa@ighgroup.com',
-        ]);  
-        DB::table('unities')->insert([
-            'name' =>'UnidadMinera',
+        ]);
+        Unity::insert([
+            'name' =>'Ilo',
             'address' =>'empresa@ighgroup.com'
-       ]);    
-             
-            
-          
-        
+       ]);
+
+        Unity::insert([
+            'name' =>'All',
+            'address' =>'Av la aencalada'
+        ]);
     }
 }
