@@ -14,11 +14,9 @@ class PermissionTableSeeder extends Seeder
      */
     public function run()
     {
+        /* permisos para roles */
         DB::table('permissions')->insert([
             'name'=>'role-list',
-        ]);
-        DB::table('permissions')->insert([
-
         ]);
         DB::table('permissions')->insert([
             'name'=>'role-create',
@@ -29,73 +27,80 @@ class PermissionTableSeeder extends Seeder
         DB::table('permissions')->insert([
             'name'=>'role-delete',
         ]);
+
+        /*permisos de cursos*/
+
         DB::table('permissions')->insert([
             'name'=>'course-list',
         ]);
         DB::table('permissions')->insert([
             'name'=>'course-create',
-        ]);    
-        
+        ]);
         DB::table('permissions')->insert([
             'name'=>'course-edit',
         ]);
         DB::table('permissions')->insert([
             'name'=>'course-delete',
-        ]);    
+        ]);
+
+        /* permisos usuarios */
         DB::table('permissions')->insert([
             'name'=>'user-list',
-        ]);    
+        ]);
         DB::table('permissions')->insert([
             'name'=>'user-create',
-        ]);  
+        ]);
         DB::table('permissions')->insert([
             'name'=>'user-edit',
-        ]);  
+        ]);
         DB::table('permissions')->insert([
             'name'=>'user-delete',
-        ]);    
-        
+        ]);
+
+        /* permisos company */
         DB::table('permissions')->insert([
             'name'=>'company-list',
         ]);
         DB::table('permissions')->insert([
             'name'=>'company-create',
-        ]);    
+        ]);
         DB::table('permissions')->insert([
             'name'=>'company-edit',
-        ]);    
+        ]);
         DB::table('permissions')->insert([
             'name'=>'company-delete',
-        ]);    
+        ]);
+
+        /* permisos unity */
         DB::table('permissions')->insert([
             'name'=>'unity-list',
-        ]);    
+        ]);
         DB::table('permissions')->insert([
             'name'=>'unity-create',
-        ]);    
+        ]);
         DB::table('permissions')->insert([
             'name'=>'unity-edit',
         ]);
         DB::table('permissions')->insert([
             'name'=>'unity-delete',
-        ]);    
+        ]);
+
+        /* permisos typo course */
         DB::table('permissions')->insert([
             'name'=>'type_course-list',
-        ]); 
+        ]);
         DB::table('permissions')->insert([
             'name'=>'type_course-create',
-        ]);    
-        DB::table('permissions')->insert([
-            
         ]);
         DB::table('permissions')->insert([
             'name'=>'type_course-edit',
-            
-        ]); 
+        ]);
         DB::table('permissions')->insert([
-            
             'name'=>'type_course-delete'
         ]);
+
+        /* permisos para inscribir */
+
         DB::table('permissions')->insert([
             'name'=>'inscription-list',
         ]);
@@ -136,7 +141,7 @@ class PermissionTableSeeder extends Seeder
 
 //---
          DB::table('model_has_roles')->insert([
-            
+
             'model_type'=>'App\User',
             'role_id'=>'1',
             'model_id'=>'1',
@@ -270,6 +275,7 @@ class PermissionTableSeeder extends Seeder
             'permission_id'=>'24',
             'role_id'=>'1'
         ]);
+        
         DB::table('role_has_permissions')->insert([
             'permission_id'=>'25',
             'role_id'=>'1'

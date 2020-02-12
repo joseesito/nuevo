@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        
+
         $this->truncateTables([
             'courses',
             'roles',
@@ -33,16 +33,16 @@ class DatabaseSeeder extends Seeder
         $this->call(LocationSeeder::class);
 
 
-       
+
     }
         protected function truncateTables(array $tables)
-        
+
         {
             DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
             foreach($tables as $table){
                 DB::table($table)->truncate();
             }
-            
+
             DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
         }
 }

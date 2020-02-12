@@ -21,9 +21,9 @@ class CreateInscriptionUserTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->string('assistence', 1)->nullable();
-            $table->unsignedSmallInteger('grade')->nullable();
-            $table->unsignedSmallInteger('grade_min')->nullable();
+            $table->string('assistance', 1)->nullable();
+            $table->unsignedSmallInteger('grade');
+            $table->unsignedSmallInteger('grade_min');
             $table->string('type');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('unity_id');
