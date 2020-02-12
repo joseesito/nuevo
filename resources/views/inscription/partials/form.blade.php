@@ -12,76 +12,40 @@
     @endif
 
 
-    <form action="{{ route('inscription.store') }}" method="POST">
+    <form action="{{ route('inscriptions.store') }}" method="POST">
     	@csrf
 
 
          <div class="row">
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
-		            <strong>Nombre:</strong>
-		            <input type="text" name="name" class="form-control" placeholder="Name"value={{ isset($inscription->name)?$inscription->name:''  }}>
+                {!! Form::label('course_id', 'Curso') !!}
+                {!! Form::select('course_id', $courses, null, ['class' => 'form-control']) !!}		        
+                </div>
+                <div class="form-group">
+                {!! Form::label('location_id', 'Lugar') !!}
+                    {!! Form::select('location_id', $locations, null, ['class' => 'form-control']) !!}
 		        </div>
                 <div class="form-group">
-		            <strong>Ubicacion:</strong>
-		            <input type="text" name="hours" class="form-control" placeholder="Name"value={{ isset($inscription->location_id)?$inscription->location_id:""}}>
+                {!! Form::label('slot', 'Vacantes') !!}
+			        {!! Form::text('slot', null, ['class' => 'form-control','placeholder' => 'Ingresa slots','required' => 'required']) !!}
 		        </div>
                 <div class="form-group">
-		            <strong>Unity_id:</strong>
-		            <input type="text" name="grade_min" class="form-control" placeholder="Name" value={{ isset($inscription->unity_id)?$inscription->unity_id:""}}>
-		        </div>
+			    {!! Form::label('user_id', 'Facilitador') !!}
+			        {!! Form::select('user_id', $users, null, ['class' => 'form-control']) !!}
+			    </div>
                 <div class="form-group" >
-                    <strong>user_id</strong>
-                    <input type="text" class="form-control" name="certificate" placeholder="Name"value={{ isset($inscription->user_id)?$inscription->user_id:""}}>
-                </div>
-                <div class="form-group" >
-                    <strong>Direccion</strong>
-                    <input type="text" class="form-control" name="certificate" placeholder="Name"value={{ isset($inscription->address)?$inscription->address:""}}>
+                {{!! Form::label('start_date', 'Fecha') !!}
+			        {!! Form::text('start_date', null, ['class' => 'form-control','placeholder' => 'Ingresa fecha','required' => 'required']) !!}
                 </div>
                 <div class="form-group" >
-                    <strong>Fecha_Inicio</strong>
-                    <input type="text" class="form-control" name="certificate" placeholder="Name"value={{ isset($inscription->start_date)?$inscription->start_date:""}}>
+                {{!! Form::label('address', 'Dirección') !!}
+			        {!! Form::text('address', null, ['class' => 'form-control','placeholder' => 'Ingresa dirección','required' => 'required']) !!}
                 </div>
                 <div class="form-group" >
-                    <strong>Fecha_Fin</strong>
-                    <input type="text" class="form-control" name="certificate" placeholder="Name"value={{ isset($inscription->end_date)?$inscription->end_date:""}}>
+                {!! Form::label('time', 'Hora') !!}
+			        {!! Form::text('time', null, ['class' => 'form-control','placeholder' => 'Ingresa Hora','required' => 'required']) !!}
                 </div>
-                <div class="form-group" >
-                    <strong>Hora</strong>
-                    <input type="text" class="form-control" name="certificate" placeholder="Name"value={{ isset($inscription->hours)?$inscription->hours:""}}>
-                </div>
-
-                <div class="input-group">
-                    <strong>Vigencia</strong>
-                    <input type="number" id="txtname" name="validity" class="form-control" placeholder="Name" value={{ isset($inscription->validity)?$inscription->validity:""}}>
-                
-                
-                
-                <!--separador -->
-                <span class="input-group-addon" ></span>
-                &nbsp;
-                <div class="dropdown">
-
-                <select class="btn btn-primary dropdown-toggle"  name="type_validity" type="text" id="tipo_validaty">
-    
-                @if(isset($inscription) && $inscription->type_validity==1)
-                <option value="1">Dia</option>
-                <option value="2">Mes</option>
-                <option value="3">Año</option>
-                 @elseif(isset($inscription) && $inscription->type_validity==2)
-                <option value="2">Mes</option>
-                <option value="1">Dia</option>
-                <option value="3">Año</option>
-                @else 
-                <option value="3">Año</option>
-                <option value="2">Mes</option>
-                <option value="1">Dia</option>
-                @endif
-                </select>
-
-                </div>
-       
-            <br>
             <br>
             <br>
             <div style="width: 450px; margin: 0 auto;">

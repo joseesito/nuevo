@@ -37,7 +37,32 @@
             <strong>Nombre:</strong>
             {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
         </div>
-    </div>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <strong>Apellido</strong>
+        {!! Form::text('last_name', null, array('placeholder' => 'last_name','class' => 'form-control')) !!}
+        </div>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <strong>Compañia</strong>
+        {!! Form::select('company_id', $company, null, ['class' => 'form-control']) !!}
+        </div>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <strong>Unidad</strong>
+        {!! Form::select('unity_id', $unity, null, ['class' => 'form-control']) !!}
+        </div>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <strong>Documento</strong>
+        {!! Form::text('document', null, array('placeholder' => 'document','class' => 'form-control')) !!}
+        </div>
+        </div>
+    
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Email:</strong>
@@ -52,18 +77,18 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Confirmar Contra:</strong>
+            <strong>Confirmar Password:</strong>
             {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Role:</strong>
-            {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+            {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-primary">Editar</button>
+        <button type="submit" class="btn btn-primary">Agregar</button>
     </div>
 </div>
 {!! Form::close() !!}

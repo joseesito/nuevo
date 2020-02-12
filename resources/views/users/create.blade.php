@@ -38,7 +38,32 @@
             <strong>Nombre:</strong>
             {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
         </div>
-    </div>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <strong>Apellido</strong>
+        {!! Form::text('last_name', null, array('placeholder' => 'last_name','class' => 'form-control')) !!}
+        </div>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <strong>Compañia</strong>
+        {!! Form::select('company_id', $company, null, ['class' => 'form-control']) !!}
+        </div>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <strong>Unidad</strong>
+        {!! Form::select('unity_id', $unity, null, ['class' => 'form-control']) !!}
+        </div>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <strong>Documento</strong>
+        {!! Form::text('document', null, array('placeholder' => 'document','class' => 'form-control')) !!}
+        </div>
+        </div>
+    
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Email:</strong>

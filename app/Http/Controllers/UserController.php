@@ -7,6 +7,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Company;
+use App\Unity;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
@@ -32,9 +34,11 @@ class UserController extends Controller
     
     public function create()
     {
+        $company =Company::pluck('name','id');
+        $unity = Unity::pluck('name','id');
         $roles = Role::pluck('name','name')->all();
         
-        return view('users.create',compact('roles'));
+        return view('users.create',compact('roles','company','unity'));
     }
 
 
@@ -57,6 +61,7 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
 
+
         return redirect()->route('users.index')
                         ->with('success','User created successfully');
     }
@@ -73,12 +78,14 @@ class UserController extends Controller
     
     public function edit($id)
     {
+        $company =Company::pluck('name','id');
+        $unity = Unity::pluck('name','id');
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('users.edit',compact('user','roles','userRole','company','unity'));
     }
 
 

@@ -19,8 +19,8 @@
             <div class="box-header with-border">
               <h3 class="box-title">Registrar Inscription</h3>
             </div>           
-            {!! Form::open(['route' => 'courses.store', 'class' => 'form-horizontal']) !!}
-                @include('courses.partials.form')
+            {!! Form::open(['route' => 'inscriptions.store', 'class' => 'form-horizontal']) !!}
+                @include('Inscription.partials.form')
             {!! Form::close() !!}
           </div>         
         </div>

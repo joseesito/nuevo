@@ -19,8 +19,8 @@
         <div class="box-header with-border">
           <h3 class="box-title">Editar Inscription</h3>
         </div> 
-        {!! Form::model($course, ['route' => ['courses.update', $course->id], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
-        @include('courses.partials.form')
+        {!! Form::model($inscription, ['route' => ['inscriptions.update', $inscription->id], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+        @include('Inscription.partials.form')
         {!! Form::close() !!}
       </div>         
     </div>

@@ -29,5 +29,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('courses','CourseController');
     Route::resource('type_courses','TipoCourseController');
     Route::resource('inscriptions','InscriptionController');
+    Route::resource('courses','CourseController');
     Route::resource('locations','LocationController');
 });

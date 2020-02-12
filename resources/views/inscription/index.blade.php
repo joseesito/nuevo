@@ -62,21 +62,17 @@
             <th>lugar</th>
             <th>Curso</th>
             <th>Fecha Inicio</th>
-            <th>Fecha Finalizada</th>
             <th>Hora</th>
             <th>Vacantes</th>
-            <th>Vigencia</th>
             
             <th width="280px">Action</th>
         </tr>
 	    @foreach ($inscription as $inscriptio)
 	    <tr>
         <td>{{ $inscriptio->nameLocation }}</td>
-	        <td>{{ $inscriptio->nameinscription }}</td>
+	        <td>{{ $inscriptio->namecurso }}</td>
             <td>{{ $inscriptio->start_date}}</td>
-            <td>{{ $inscriptio->end_date}}</td>
             <td>{{ $inscriptio->hours }}</td>  
-            <td>{{ $inscriptio->hours}}</td>
             <td>{{ $inscriptio->slot}}</td>
             @if($inscriptio->type_validity==1)
                 @if($inscriptio->validity==1)
