@@ -2,17 +2,17 @@
 @section('title', 'Southern')
 
 @section('content_header')
-@stop
+@endsection
 
 
 @section('content')
   <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2> Mostrar Tipo cursos</h2>
+                <h2> Mostrar Empresa</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('type_courses.index') }}"> Volver</a>
+                <a class="btn btn-primary" href="{{ route('companies.index') }}"> Volver</a>
             </div>
         </div>
     </div>
@@ -21,15 +21,37 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Tipo Curso:</strong>
-                {{ $type_course->name }}
+                <strong>Ruc:</strong>
+                {{ $company->ruc }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Razón social:</strong>
+                {{ $company->name }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Dirección:</strong>
+                {{ $company->address }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Telefono:</strong>
+                {{ $company->phone }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Estado:</strong>
-                {{ $type_course->state }}
+                @if($company->state == 1)
+                    <span class="label bg-green">activo</span>
+                @else
+                    <span class="label bg-green">desactivado</span>
+                @endif
             </div>
         </div>
     </div>
-@stop
+@endsection

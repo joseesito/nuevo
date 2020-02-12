@@ -6,13 +6,13 @@
 @stop
 
 @section('content')
-  <div class="row">
+    <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Editar Tipo Curso</h2>
+                <h2>Agregar Empresa</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('type_courses.index') }}"> Volver</a>
+                <a class="btn btn-primary" href="{{ route('companies.index') }}"> Volver</a>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
 
     @if ($errors->any())
         <div class="alert alert-danger">
-            <strong>Sorry!</strong> Hay problemas con tu input.<br><br>
+            <strong>Sorry!</strong> Tienes problemas con tu input.<br><br>
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -30,24 +30,42 @@
     @endif
 
 
-    <form action="{{ route('type_courses.update',$type_course->id) }}" method="POST">
-    	@csrf
+    <form action="{{ route('companies.update', $company->id) }}" method="POST">
+        @csrf
         @method('PUT')
-
-
-         <div class="row">
-		    <div class="col-xs-12 col-sm-12 col-md-12">
-		        <div class="form-group">
-		            <strong>Nombre:</strong>
-		            <input type="text" name="name" value="{{ $type_course->name }}" class="form-control" placeholder="Name">
-		        </div>
-		    </div>
-		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-		      <button type="submit" class="btn btn-primary">Editar</button>
-		    </div>
-		</div>
-
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    <label>Ruc:</label>
+                    <input type="text" name="ruc" class="form-control" value="{{ $company->ruc }}" placeholder="Ingrese el Nro de RUC">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    <label>Nombre:</label>
+                    <input type="text" name="name" class="form-control" value="{{ $company->name }}" placeholder="Ingrese razón social">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8">
+                <div class="form-group">
+                    <label>Dirección:</label>
+                    <input type="text" name="address" class="form-control" value="{{ $company->address }}" placeholder="Ingrese Dirección">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="form-group">
+                    <label>telefono:</label>
+                    <input type="text" name="phone" class="form-control" value="{{ $company->phone }}" placeholder="Ingrese Nro. de telefono">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Agregar</button>
+            </div>
+        </div>
 
     </form>
-
 @stop
