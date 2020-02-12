@@ -15,15 +15,15 @@ class CreateInscriptionUserTable extends Migration
     {
         Schema::create('inscription_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_inscriptions');
-            $table->foreign('course_id')->references('id')->on('courses')
+            $table->unsignedBigInteger('inscription_id');
+            $table->foreign('inscription_id')->references('id')->on('inscriptions')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->string('assistence', 1)->nullable();
-            $table->unsignedSmallInteger('grade');
-            $table->unsignedSmallInteger('grade_min');
+            $table->unsignedSmallInteger('grade')->nullable();
+            $table->unsignedSmallInteger('grade_min')->nullable();
             $table->string('type');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('unity_id');

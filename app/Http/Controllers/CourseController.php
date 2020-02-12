@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\TypeCourse;
 use App\Course;
 use DB;
 
@@ -28,19 +29,30 @@ class CourseController extends Controller
 
     public function create()
     {
-        return view('courses.create');
+        $type=TypeCourse::pluck('name','id');
+        return view('courses.create', compact('type'));
     }
     public function store(Request $request)
     {
         
         $this->validate($request,[
             'name' => 'required',
-        ]);
+            'hours' => 'required',
+            'validity' => 'required',
+            'type_validity' =>'required|min:1',
+            
+
+        ],
+            [
+                'name.required' => 'El campo name es requerido',
+                'hours.required' => 'El campo horas es requerido',
+                'validity.required' => 'El campo vigencia es requerido',
+                'validity.min' => 'El campo vigencia debe ser mayor a 1'
+            ]);
         $course = new Course;
         $course->type_course_id = $request->type_course_id;
         $course->name = $request->name;
         $course->hours = $request->hours;
-        $course->grade_min = $request->grade_min;
         $course->validity = $request->validity;   
         $course->type_validity = $request->type_validity;
         $course->price = null;
@@ -58,12 +70,26 @@ class CourseController extends Controller
     
     public function edit(Course $course)
     {        
-         return view('courses.edit',compact('course'));
+        $type=TypeCourse::pluck('name','id');
+        return view('courses.edit', compact('course','type'));
     }
 
     
     public function update(Request $request, $id)
     {
+        $this->validate($request,[
+            'name' => 'required',
+            'hours' => 'required',
+            'validity' => 'required',
+            'type_validity' =>'required|min:1',
+
+        ],
+            [
+                'name.required' => 'El campo name es requerido',
+                'hours.required' => 'El campo horas es requerido',
+                'validity.required' => 'El campo vigencia es requerido',
+                'validity.min' => 'El campo vigencia debe ser mayor a 1'
+            ]);
         
         $course = Course::find($id);
         $course->type_course_id = $request->type_course_id;

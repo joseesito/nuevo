@@ -24,7 +24,8 @@
 		        </div>
                 <div class="form-group">
 		            <strong>tipo de curso:</strong>
-		            <input type="text" name="type_course_id" class="form-control" placeholder="Name" >
+                    {!! Form::select('type_course_id', $type, null, ['class' => 'form-control']) !!}
+		            
 		        </div>
                 <div class="form-group">
 		            <strong>Horas:</strong>

@@ -31,11 +31,11 @@ class CreateInscriptionsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');;
-            $table->string('address');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('time');
-            $table->integer('slot');
+            $table->string('address')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->string('time')->nullable();
+            $table->integer('slot')->nullable();
 
             // Campos historicos de la tabla curso.
             $table->string('name')->nullable();

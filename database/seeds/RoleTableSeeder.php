@@ -15,6 +15,18 @@ class RoleTableSeeder extends Seeder
         DB::table('roles')->insert([
             'name'=>'root'
         ]);
+        DB::table('roles')->insert([
+            'name'=>'participante' 
+        ]);
+        DB::table('roles')->insert([
+            'name'=>'Coordinador' 
+        ]);
+        DB::table('roles')->insert([
+            'name'=>'Facilitador' 
+        ]);
+        DB::table('roles')->insert([
+            'name'=>'Contratista' 
+        ]);
             
     }
 }

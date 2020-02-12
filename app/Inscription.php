@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inscription extends Model
 {
+    protected $fillable = [
+        'course_id','location_id','start_date','end_date','address','time','slot',
+        'state', 'user_id', 'name', 'price', 'hours',
+    ];
+    protected $hidden = [
+        'created_at','updated_at'
+    ];
+
+    protected $dates = [
+      'start_Date', 'end_Date',
+    ];
     public function location()
     {
         return $this->belongsTo('App/Location');

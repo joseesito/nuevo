@@ -23,6 +23,17 @@ class UserTableSeeder extends Seeder
             'password'=>bcrypt('root')
             
         ]);
+        DB::table('users')->insert([
+            'company_id'=>'1',
+            'type_document' =>'DNI',
+            'unity_id'=>'1',
+            'document'=>'23568978',
+            'last_name'=> 'visitante',
+            'name'=>'visitante',
+            'email'=>'visitante@hotmail.com',
+            'password'=>bcrypt('visitante')
+            
+        ]);
         
     }
 }

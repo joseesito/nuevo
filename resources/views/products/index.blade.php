@@ -12,9 +12,9 @@
                 <h2>Products</h2>
             </div>
             <div class="pull-right">
-                @can('product-create')
+            @can('product-create')
                 <a class="btn btn-success" href="{{ route('products.create') }}"> Crear nuevo producto</a>
-                @endcan
+            @endcan
             </div>
         </div>
     </div>
