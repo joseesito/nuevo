@@ -36,7 +36,9 @@ class UserController extends Controller
     {
         $company =Company::pluck('name','id');
         $unity = Unity::pluck('name','id');
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::where('id','=',4) ->pluck('name','id');
+
+       
         
         return view('users.create',compact('roles','company','unity'));
     }
@@ -81,7 +83,7 @@ class UserController extends Controller
         $company =Company::pluck('name','id');
         $unity = Unity::pluck('name','id');
         $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::where('id','=',4) ->pluck('name','id');
         $userRole = $user->roles->pluck('name','name')->all();
 
 
