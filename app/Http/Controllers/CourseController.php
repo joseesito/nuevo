@@ -17,48 +17,44 @@ class CourseController extends Controller
     }
     public function index(Request $request)
     {
-        $course=DB::table('courses as cu')
-        ->select('cu.id','cu.name','cu.hours','type_courses.name as nametype_course','cu.validity','cu.grade_min','cu.type_validity')
-        ->join('type_courses','type_courses.id','=','cu.type_course_id')
-        ->where('cu.state','=',0)
-        
-        ->get();
-        return view('courses.index',compact('course'));
-
+        $courses = DB::table('courses')
+            ->select('courses.id','courses.name','courses.hours', 'courses.type_course_id',
+                'type_courses.name as name_type_course','courses.validity',
+                'courses.type_validity','courses.grade_min')
+            ->join('type_courses','type_courses.id','=','courses.type_course_id')
+            ->get();
+        return view('courses.index',compact('courses'));
     }
 
     public function create()
     {
-        $type=TypeCourse::pluck('name','id');
-        return view('courses.create', compact('type'));
+        $course = new Course;
+        $type_courses = TypeCourse::orderBy('name')->get();
+        // $type = TypeCourse::pluck('name','id');
+
+        return view('courses.create', compact('type_courses', 'course'));
     }
+
     public function store(Request $request)
     {
-        
-        $this->validate($request,[
-            'name' => 'required',
-            'hours' => 'required',
-            'validity' => 'required',
-            'type_validity' =>'required|min:1',
-            
 
-        ],
-            [
-                'name.required' => 'El campo name es requerido',
-                'hours.required' => 'El campo horas es requerido',
-                'validity.required' => 'El campo vigencia es requerido',
-                'validity.min' => 'El campo vigencia debe ser mayor a 1'
-            ]);
-        $course = new Course;
-        $course->type_course_id = $request->type_course_id;
-        $course->name = $request->name;
-        $course->hours = $request->hours;
-        $course->validity = $request->validity;   
-        $course->type_validity = $request->type_validity;
-        $course->price = null;
-        $course->state = 0;    
-        $course->save();
-        return redirect()->route('courses.index')->with('success','El curso fue registrado');
+        $fields = request()->validate([
+            'name' => 'required',
+            'hours' => 'required|digits_between:1,3',
+            'grade_min' => 'required|numeric|digits_between:1,2|min:14|max:20',
+        ]);
+
+        $fields['type_course_id'] = $request->type_course_id;
+        $fields['validity'] = 1;
+        $fields['type_validity'] = 3;
+
+
+        //dd($fields);
+
+        $course = Course::create($fields);
+
+        return redirect()->route('courses.index')
+            ->with('success', 'El curso "'. $course->name .'" de '. $course->hours.' fue registrado correctamente');
 
     }
 
@@ -67,14 +63,14 @@ class CourseController extends Controller
         return view('courses.show',compact('course'));
     }
 
-    
+
     public function edit(Course $course)
-    {        
+    {
         $type=TypeCourse::pluck('name','id');
         return view('courses.edit', compact('course','type'));
     }
 
-    
+
     public function update(Request $request, $id)
     {
         $this->validate($request,[
@@ -90,7 +86,7 @@ class CourseController extends Controller
                 'validity.required' => 'El campo vigencia es requerido',
                 'validity.min' => 'El campo vigencia debe ser mayor a 1'
             ]);
-        
+
         $course = Course::find($id);
         $course->type_course_id = $request->type_course_id;
         $course->name = $request->name;
@@ -99,16 +95,16 @@ class CourseController extends Controller
         $course->grade_min = $request->grade_min;
         $course->price = null;
         $course->type_validity = $request->type_validity;
-        
+
         $course->save();
 
         return redirect()->route('courses.index')->with('success','Curso Actualizado!');
     }
 
-    
+
     public function destroy(Request $request, $id)
     {
-        
+
         $course = Course::find($id);
         $cours = DB::table('courses')
         ->where('id','=',$id)
@@ -118,10 +114,10 @@ class CourseController extends Controller
         if($cours==1){
             Course:: where('id','=',$id)->update(['state'=> '1']);
             return redirect()->back()->with('Mensaje', 'la eliminacion del Curso :    '.''. $course->nameC .''.''. '  en la hora Programada: '.''. $course->hours.''. ' fue Realizada.');
-           
+
         }else{
-           
-            return redirect()->back()->with('Mensaje2','Curso inexistente!'); 
+
+            return redirect()->back()->with('Mensaje2','Curso inexistente!');
         }
     }
 }

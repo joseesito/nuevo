@@ -3,30 +3,26 @@
 @section('title', 'Southern')
 
 @section('content_header')
-@stop
+@endsection
 
 
 @section('content')
 
-    <section class="content-header">
-    
-    </section>
-    
-    <section class="content">
-      <div class="row">
-        <div class="col-md-9">
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Registrar curso</h3>
-            </div>           
-            {!! Form::open(['route' => 'courses.store', 'class' => 'form-horizontal']) !!}
-                @include('courses.partials.form')
-            {!! Form::close() !!}
-          </div>         
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h2>Agregar Curso</h2>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-primary" href="{{ route('courses.index') }}"> Volver</a>
+            </div>
         </div>
-      </div>
-    </section> 
+    </div>
 
+    @include('partials.validation-errors')
 
+    <form action="{{ route('courses.store') }}" method="POST">
+        @include('courses._form', ['btnText' => 'Guardar'])
+    </form>
 
-@stop
+@endsection
