@@ -18,17 +18,17 @@
             </div>
         </div>
     </div>
-    <body>
+
           @if(Session::has('Mensaje'))
 
           <div class="alert alert-success" role="alert">
 
           <strong font size=7 >Aviso: </strong> {{session('flash')}}
-          <button type="button" class="close" data-dismiss="alert" alert-label
+          <button type="button" class="close" data-dismiss="alert alert-label">
            <span aria-hidden="true">&times;</span>
           </button>
-       
-       
+
+
           {{ Session::get('Mensaje')}}
           </div>
 
@@ -39,7 +39,7 @@
             <div class="alert alert-danger" role="alert">
 
             <strong font size=7 >Aviso: </strong> {{session('flash')}}
-            <button type="button" class="close" data-dismiss="alert" alert-label
+            <button type="button" class="close" data-dismiss="alert alert-label" >
             <span aria-hidden="true">&times;</span>
             </button>
 
@@ -48,7 +48,7 @@
           </div>
           @endif
 
-          </body>
+
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -64,45 +64,50 @@
             <th>Horas</th>
             <th>Nota minima</th>
             <th>Vigencia</th>
-            
-            <th width="280px">Action</th>
+            <th>estado</th>
+
+            <th width="280px">Acciones</th>
         </tr>
-	    @foreach ($course as $cours)
+	    @foreach ($courses as $course)
 	    <tr>
-	        <td>{{ $cours->name }}</td>
-	        <td>{{ $cours->nametype_course }}</td>
-            <td>{{ $cours->hours }}</td>   
-            <td>{{ $cours->grade_min}}</td>
-            @if($cours->type_validity==1)
-                @if($cours->validity==1)
-                <td>{{$cours->validity.' Dia'}}</td>
+	        <td>{{ $course->name }}</td>
+	        <td>{{ $course->name_type_course }}</td>
+            <td>{{ $course->hours }}</td>
+            <td>{{ $course->grade_min}}</td>
+            @if($course->type_validity==1)
+                @if($course->validity==1)
+                <td>{{$course->validity.' Dia'}}</td>
                 @else
-                <td>{{$cours->validity.' Dias'}}</td>
+                <td>{{$course->validity.' Dias'}}</td>
                 @endif
             @endif
-            @if($cours->type_validity==2)
-                @if($cours->validity==1)
-                <td>{{$cours->validity.' Mes'}}</td>
+            @if($course->type_validity==2)
+                @if($course->validity==1)
+                <td>{{$course->validity.' Mes'}}</td>
                 @else
-                <td>{{$cours->validity.' Meses'}}</td>
+                <td>{{$course->validity.' Meses'}}</td>
                 @endif
             @endif
-            @if($cours->type_validity==3)
-                @if($cours->validity==1)
-                <td>{{$cours->validity.' Año'}}</td>
+            @if($course->type_validity==3)
+                @if($course->validity==1)
+                <td>{{$course->validity.' Año'}}</td>
                 @else
-                <td>{{$cours->validity.' Años'}}</td>
+                <td>{{$course->validity.' Años'}}</td>
                 @endif
             @endif
-            
+            <td>
+                @if($course->state = 1)
+                    <span class="label bg-green">Activo</span>
+                @else
+                    <span class="label bg-green">Desactivado</span>
+                @endif
+            </td>
 	        <td>
-                <form action="{{ route('courses.destroy',$cours->id) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('courses.show',$cours->id) }}">Mostrar</a>
+                <form action="{{ route('courses.destroy',$course->id) }}" method="POST">
+                    <a class="btn btn-info" href="{{ route('courses.show',$course->id) }}">Mostrar</a>
                     @can('course-edit')
-                    <a class="btn btn-primary" href="{{ route('courses.edit',$cours->id) }}">Editar</a>
+                    <a class="btn btn-primary" href="{{ route('courses.edit',$course->id) }}">Editar</a>
                     @endcan
-
-
                     @csrf
                     @method('DELETE')
                     @can('course-delete')
