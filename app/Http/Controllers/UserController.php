@@ -36,7 +36,9 @@ class UserController extends Controller
     {
         $company =Company::pluck('name','id');
         $unity = Unity::pluck('name','id');
-        $roles = Role::where('id','=',4) ->pluck('name','id');
+        $roles = Role::where('id','=',4)
+        ->pluck('name','id');
+       
 
        
         
@@ -65,7 +67,7 @@ class UserController extends Controller
 
 
         return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+                        ->with('Mensaje','User created successfully');
     }
 
 
@@ -85,13 +87,10 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::where('id','=',4) ->pluck('name','id');
         $userRole = $user->roles->pluck('name','name')->all();
-
-
+        
         return view('users.edit',compact('user','roles','userRole','company','unity'));
     }
 
-
-    
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -100,7 +99,6 @@ class UserController extends Controller
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
-
 
         $input = $request->all();
         if(!empty($input['password'])){ 
@@ -119,7 +117,7 @@ class UserController extends Controller
 
 
         return redirect()->route('users.index')
-                        ->with('success','User updated successfully');
+                        ->with('Mensaje','User updated successfully');
     }
 
 
@@ -128,6 +126,6 @@ class UserController extends Controller
     {
         User::find($id)->delete();
         return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+                        ->with('Mensaje','User deleted successfully');
     }
 }

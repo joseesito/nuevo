@@ -3,7 +3,7 @@
 
 
 <div class="box-body">
-      
+
     @if ($errors->any())
         <div class="alert alert-danger">
             <strong>Sorry!</strong> Tienes problemas con tu input.<br><br>
@@ -15,7 +15,9 @@
         </div>
     @endif
 
-
+    <body>
+    
+    </body>
     <form action="{{ route('inscriptions.store') }}" method="POST">
     	@csrf
 

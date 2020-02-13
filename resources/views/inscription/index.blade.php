@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 @extends('adminlte::page')
 
 @section('title', 'Souther')
@@ -21,6 +22,8 @@
         </div>
     </div>
     <body>
+
+        
           @if(Session::has('Mensaje'))
 
           <div class="alert alert-success" role="alert">
