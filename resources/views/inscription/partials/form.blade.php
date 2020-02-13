@@ -1,5 +1,9 @@
+
+
+
+
 <div class="box-body">
-      
+
     @if ($errors->any())
         <div class="alert alert-danger">
             <strong>Sorry!</strong> Tienes problemas con tu input.<br><br>
@@ -11,7 +15,9 @@
         </div>
     @endif
 
-
+    <body>
+    
+    </body>
     <form action="{{ route('inscriptions.store') }}" method="POST">
     	@csrf
 
@@ -34,18 +40,21 @@
 			    {!! Form::label('user_id', 'Facilitador') !!}
 			        {!! Form::select('user_id', $users, null, ['class' => 'form-control']) !!}
 			    </div>
+
                 <div class="form-group" >
-                {{!! Form::label('start_date', 'Fecha') !!}
-			        {!! Form::text('start_date', null, ['class' => 'form-control','placeholder' => 'Ingresa fecha','required' => 'required']) !!}
+                
+                {!! Form::label('start_date', 'Fecha') !!}
+			        {!! Form::text('start_date', null, ['class' => 'form-control datepicker ','autocomplete' =>'off', 'placeholder' => 'Ingresa fecha','required' => 'required']) !!}
                 </div>
                 <div class="form-group" >
-                {{!! Form::label('address', 'Dirección') !!}
+                {!! Form::label('address', 'Dirección') !!}
 			        {!! Form::text('address', null, ['class' => 'form-control','placeholder' => 'Ingresa dirección','required' => 'required']) !!}
                 </div>
                 <div class="form-group" >
                 {!! Form::label('time', 'Hora') !!}
-			        {!! Form::text('time', null, ['class' => 'form-control','placeholder' => 'Ingresa Hora','required' => 'required']) !!}
+			        {!! Form::text('time', null, ['class' => 'form-control timepicker ','placeholder' => 'Ingresa Hora','required' => 'required']) !!}
                 </div>
+
             <br>
             <br>
             <div style="width: 450px; margin: 0 auto;">
@@ -73,8 +82,18 @@
          visibility:hidden;   
         }
         </style>
-        
-
-
-            
     </form>
+
+    @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+        <script>
+           $('.datepicker').datepicker();
+
+        </script>
+    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.0/js/bootstrap-timepicker.min.js"></script> 
+        <script>
+            $('.timepicker').timepicker();
+        </script>       
+    @endsection
+   

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 @extends('adminlte::page')
 
 @section('title', 'Souther')
@@ -6,6 +7,8 @@
 @stop
 
 @section('content')
+
+
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -19,6 +22,8 @@
         </div>
     </div>
     <body>
+
+        
           @if(Session::has('Mensaje'))
 
           <div class="alert alert-success" role="alert">

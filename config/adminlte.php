@@ -49,49 +49,60 @@ return [
             'url' => 'home',
             'icon' => 'fas fa-fw fas fa-home'
         ],
+        [
+            'text' => 'Programacion',
+            'url' => 'inscriptions',
+            'icon' => 'fas fa-fw fa-list'
+        ],
+
+        [
+            'text' => 'Participantes',
+            'url' => 'users',
+            'icon' => 'fas fa-fw fa fa-users'
+        ],
+
+        'PROCESOS',
 
         [
             'text' => 'Unidades Mineras',
             'url' => 'unities',
             'icon' => 'fas fa-fw far fa-building'
         ],
-
-
         [
-            'text' => 'Compañias',
-            'url' => 'companies',
-            'icon' => 'fas fa-fw far fa-building'
+            'text' => 'Tipo Curso',
+            'url' => 'type_courses',
+            'icon' => 'fa fa-list-alt"'
         ],
-
         [
             'text' => 'Curso',
             'url' => 'courses',
             'icon' => 'fa fa-list-alt"'
         ],
         [
-            'text' => 'Tipo Curso',
-            'url' => 'type_courses',
+            'text' => 'Localizaciones',
+            'url' => 'locations',
             'icon' => 'fa fa-list-alt"'
         ],
-
-
-        'CONFIGURACIÓN',
-
         [
-            'text' => 'Usuarios',
+            'text' => 'Compañias',
+            'url' => 'companies',
+            'icon' => 'fas fa-fw far fa-building'
+        ],
+        [
+            'text' => 'Facilitadores',
             'url' => 'users',
             'icon' => 'fas fa-fw fa fa-users'
         ],
+
+
+        'PRIVILEGIOS',
+
         [
             'text' => 'Roles',
             'url' => 'roles',
             'icon' => 'fas fa-fw fa-list'
         ],
-        [
-            'text' => 'Inscripciones',
-            'url' => 'inscriptions',
-            'icon' => 'fas fa-fw fa-list'
-        ],
+        
         [
             'text' => 'Permisos',
             'url' => 'roles',
