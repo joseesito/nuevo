@@ -15,9 +15,6 @@
         </div>
     @endif
 
-    <body>
-    
-    </body>
     <form action="{{ route('inscriptions.store') }}" method="POST">
     	@csrf
 
@@ -47,27 +44,24 @@
 			        {!! Form::text('start_date', null, ['class' => 'form-control datepicker ','autocomplete' =>'off', 'placeholder' => 'Ingresa fecha','required' => 'required']) !!}
                 </div>
                 <div class="form-group" >
-                {!! Form::label('address', 'Dirección') !!}
-			        {!! Form::text('address', null, ['class' => 'form-control','placeholder' => 'Ingresa dirección','required' => 'required']) !!}
-                </div>
-                <div class="form-group" >
                 {!! Form::label('time', 'Hora') !!}
 			        {!! Form::text('time', null, ['class' => 'form-control timepicker ','placeholder' => 'Ingresa Hora','required' => 'required']) !!}
                 </div>
+                <div class="form-group" >
+                {!! Form::label('address', 'Dirección') !!}
+			        {!! Form::text('address', null, ['class' => 'form-control','placeholder' => 'Ingresa dirección','required' => 'required']) !!}
+                </div>
+                
 
             <br>
             <br>
             <div style="width: 450px; margin: 0 auto;">
             <button id= btnagregar type="submit" class="btn btn-primary">Guardar</button>
+            <br>
+            <br>
             </div>
 
 		</div>
-        <style type="text/css">
-        #txtname{
-            right:12px;
-        }
-        
-        </style>
 
         <style type="text/css">
         .dropdown{
@@ -85,15 +79,23 @@
     </form>
 
     @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    
+    
         <script>
            $('.datepicker').datepicker();
-
+           $('.timepicker').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 30,
+            minTime: '6',
+            maxTime: '22:00pm',
+            defaultTime: '7',
+            startTime: '10:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+            });
         </script>
     
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.0/js/bootstrap-timepicker.min.js"></script> 
-        <script>
-            $('.timepicker').timepicker();
-        </script>       
     @endsection
+ 
    
