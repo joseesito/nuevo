@@ -114,7 +114,7 @@ class InscriptionController extends Controller
 
         return redirect()
             ->route('inscriptions.index')
-            ->with('success','El curso: '. $inscription->name.
+            ->with('Mensaje','El curso: '. $inscription->name.
             ' en la hora: '.$inscription->time.' fue guardado.');
     }
 
@@ -206,7 +206,7 @@ class InscriptionController extends Controller
     
             return redirect()
                 ->route('inscriptions.index')
-                ->with('success','El curso: '. $inscription->name.
+                ->with('Mensaje','El curso: '. $inscription->name.
                 ' en la hora: '.$inscription->time.' fue guardado.');
         
     }       

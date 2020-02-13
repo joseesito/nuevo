@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 @extends('adminlte::page')
 
 @section('title', 'Souther')
@@ -6,6 +7,35 @@
 @stop
 
 @section('content')
+
+<html>
+
+<head>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="lib\bootstrap-datepicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="lib\bootstrap-datepicker.css" >
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script>
+			
+			$('.datepicker').datepicker();
+		
+	 </script>
+</head>
+<body>
+<div class="container">
+	<div class="dates" style="margin-top:100px;color:#2471a3;">
+    <label>Choose DOB</label>
+    <input type="text" style="width:200px;background-color:#aed6f1;" class="form-control datepicker" id="usr1" name="event_date" placeholder="YYYY-MM-DD" autocomplete="off" >
+  </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -19,6 +49,8 @@
         </div>
     </div>
     <body>
+
+        
           @if(Session::has('Mensaje'))
 
           <div class="alert alert-success" role="alert">
