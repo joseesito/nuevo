@@ -22,28 +22,24 @@ class InscriptionController extends Controller
     }
     public function index()
     {
-        $inscription =DB::table('inscriptions as in')
-        ->select('in.id','u.name as name','in.name as namecurso','lo.name as nameLocation','uni.name','in.address','in.time','in.hours',
-        'in.grade_min','in.price','in.free','in.validity','in.type_validity','in.certificate','lo.name as namelocation','in.start_date',
-        'in.end_date','in.slot',
-        DB::raw('COUNT(UI.id) as alumnos_matriculados'))
-        ->leftjoin('inscription_user as UI',function($join){
-            $join->on('UI.inscription_id','=','in.id')
-            ->where('UI.state','<>',0);
-        })
-        ->join('courses as cur','cur.id','in.course_id')
-        ->join('users as u','u.id','=','in.user_id')
-        ->join('unities as uni','uni.id','=','in.unity_id')
-        
-        ->join('locations as lo','lo.id','=','in.location_id')
-        ->where('start_date','>',date('2000-01-01'))
-        
-        ->where('in.state','=',1)
-        ->groupBy('in.id') 
-        ->orderBy('in.start_Date','asc')
+        // recuperamos el usuario facilitador
+        $user = Auth::user();
+        // recuperamos toda las programaciones de la "unidad minera" que pertenece el usuario facilitador
+        $inscriptions = DB::table('inscriptions as I')
+        ->select(
+            'I.id','I.name',
+            'L.name as location','U.name as unity',
+            'I.address',
+            'I.time','I.hours',
+            'I.start_date')
+        ->join('unities as U','U.id','=','I.unity_id')
+        ->join('locations as L','L.id','=','I.location_id')
+        ->where('I.state','=',1)
+        ->where('I.unity_id','=', $user->unity_id)
+        ->orderBy('I.start_Date','asc')
         ->get();
 
-        return view('inscription.index',compact('inscription'));
+        return view('inscription.index',compact('inscriptions'));
     }
 
     /**
@@ -54,7 +50,7 @@ class InscriptionController extends Controller
     public function create()
     {
         $unity = Unity::pluck('name','id');
-       
+
         $locations = Location::pluck('name','id');
         $courses = Course::pluck('name','id');
         $users = User::pluck('name','id');
@@ -69,9 +65,9 @@ class InscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $user = Auth::user();
-        
+
         $this->validate($request ,[
             'start_date' => 'required',
             'address' => 'required',
@@ -87,12 +83,12 @@ class InscriptionController extends Controller
         $course = DB::table('courses')
         ->where('id',$request->course_id)
         ->first();
-        //dd('jgbjjh'); 
+        //dd('jgbjjh');
 
         $inscription = new Inscription;
         $inscription->course_id = $request->course_id;
         $inscription->location_id = $request->location_id;
-        
+
         $inscription->unity_id = $user->unity_id;
         $inscription->slot=$request->slot;
         $inscription->user_id =$request->user_id;
@@ -101,7 +97,7 @@ class InscriptionController extends Controller
         $inscription->start_date = $request->start_date;
         $inscription->end_date = $request->start_date;
 
-        
+
         $inscription->hours=$course->hours;
         $inscription->name=$course->name;
         $inscription->grade_min=$course->grade_min;
@@ -126,7 +122,7 @@ class InscriptionController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -138,7 +134,7 @@ class InscriptionController extends Controller
     public function edit(Inscription $inscription)
 
     {
-        
+
         $users = Auth::user();
         $locations = Location::pluck('name','id');
         $courses = Course::pluck('name','id');
@@ -148,7 +144,7 @@ class InscriptionController extends Controller
             )
             ->where('users.state', 1)
             ->pluck('nombre_completo', 'id');
-       
+
         return view('inscription.edit',compact('inscription','locations','courses','users'));
     }
 
@@ -161,8 +157,8 @@ class InscriptionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        
+
+
         $this->validate($request ,[
             'start_date' => 'required',
             'address' => 'required',
@@ -175,11 +171,11 @@ class InscriptionController extends Controller
                 'slot.required' => 'Vacante requerida',
                 'slot.min' => 'la vacante debe de ser mayor a 1'
             ]);
-        $users = Auth::user();
+        $user = Auth::user();
         $course =DB::table('courses')
             ->where('id',$request->course_id)
             ->first();
-            
+
             $inscription = Inscription::find($id);
             $inscription->course_id = $request->course_id;
             $inscription->location_id = $request->location_id;
@@ -190,8 +186,8 @@ class InscriptionController extends Controller
             $inscription->start_date = $request->start_date;
             $inscription->end_date = $request->start_date;
             $inscription->unity_id = $user->unity_id;
-    
-          
+
+
             $inscription->hours=$course->hours;
             $inscription->name=$course->name;
             $inscription->grade_min=$course->grade_min;
@@ -199,22 +195,20 @@ class InscriptionController extends Controller
             $inscription->free=$course->free;
             $inscription->certificate=$course->certificate;
             $inscription->validity=$course->validity;
-            
+
             $inscription->type_validity=$course->type_validity;
-            
+
             $inscription->save();
-    
+
             return redirect()
                 ->route('inscriptions.index')
                 ->with('Mensaje','El curso: '. $inscription->name.
                 ' en la hora: '.$inscription->time.' fue guardado.');
-        
-    }       
+
+    }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
@@ -226,12 +220,18 @@ class InscriptionController extends Controller
 
         if($inscripti==1){
             Inscription:: where('id','=',$id)->update(['state'=> '0']);
-            
+
             return redirect()->back()->with('Mensaje', 'la eliminacion del Curso :    '.''. $inscription->name .''.''. '  en la hora Programada: '.''. $inscription->hours.''. ' fue Realizada.');
-           
+
         }else{
-           
-            return redirect()->back()->with('Mensaje2','Curso inexistente!'); 
+
+            return redirect()->back()->with('Mensaje2','Curso inexistente!');
         }
     }
+
+
+    public function register(Inscription $inscription) {
+        return view('inscription.register',compact('inscription'));
+    }
+
 }

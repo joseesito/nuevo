@@ -12,7 +12,7 @@
                 <h2>Participantes</h2>
             </div>
             <div class="pull-right">
-                @can('user-create')
+                @can('participant-create')
                     <a class="btn btn-default" href="{{ route('participants.create') }}"> Formato</a>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants"> Asignación masiva</button>
                     <a class="btn btn-success" href="{{ route('participants.create') }}"> Crear nuevo participante</a>
@@ -77,14 +77,14 @@
                     @endif
                 </td>
                 <td>
-                    @can('user-list')
+                    @can('participant-list')
                         <a class="btn btn-info" href="{{ route('participants.show',$user->id) }}">Mostrar</a>
                     @endcan
-                    @can('user-edit')
+                    @can('participant-edit')
                         <a class="btn btn-primary" href="{{ route('participants.edit',$user->id) }}">Editar</a>
                     @endcan
                     {!! Form::open(['method' => 'DELETE','route' => ['participants.destroy', $user->id],'style'=>'display:inline']) !!}
-                    @can('user-delete')
+                    @can('participant-delete')
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     @endcan
                     {!! Form::close() !!}

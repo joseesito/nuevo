@@ -29,8 +29,18 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('products','ProductController');
     Route::resource('courses','CourseController');
     Route::resource('type_courses','TipoCourseController');
-    Route::resource('inscriptions','InscriptionController');
     Route::resource('courses','CourseController');
     Route::resource('locations','LocationController');
     Route::resource('facilitadors','FacilitadorController');
+
+    /**
+     *
+     * rutas de inscription
+     *
+    **/
+
+    Route::resource('inscriptions','InscriptionController');
+    Route::get('inscriptions/register/{inscription}', 'InscriptionController@register')->name('inscriptions.register');
+    Route::get('inscriptions/register-grade', 'InscriptionController@grade')->name('inscriptions.register_gradre');
+
 });
