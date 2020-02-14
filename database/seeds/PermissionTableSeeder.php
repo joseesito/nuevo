@@ -149,7 +149,7 @@ class PermissionTableSeeder extends Seeder
         ]);
 
         DB::table('model_has_roles')->insert([
-            
+
             'model_type'=>'App\User',
             'role_id'=>'2',
             'model_id'=>'2',
@@ -157,25 +157,25 @@ class PermissionTableSeeder extends Seeder
         ]);
 
         DB::table('model_has_roles')->insert([
-            
+
             'model_type'=>'App\User',
-            'role_id'=>'3',
+            'role_id'=>'4',
             'model_id'=>'3',
-            //coordinador
+            //facilitador
         ]);
         DB::table('model_has_roles')->insert([
-            
+
             'model_type'=>'App\User',
             'role_id'=>'4',
             'model_id'=>'4',
             //facilitador
         ]);
         DB::table('model_has_roles')->insert([
-            
+
             'model_type'=>'App\User',
-            'role_id'=>'5',
+            'role_id'=>'4',
             'model_id'=>'5',
-            //contratista
+            //facilitador
         ]);
 
 //--
@@ -275,7 +275,7 @@ class PermissionTableSeeder extends Seeder
             'permission_id'=>'24',
             'role_id'=>'1'
         ]);
-        
+
         DB::table('role_has_permissions')->insert([
             'permission_id'=>'25',
             'role_id'=>'1'
@@ -437,6 +437,6 @@ class PermissionTableSeeder extends Seeder
             'permission_id'=>'36',
             'role_id'=>'1'
         ]);
-       
-        }
+
+    }
 }
