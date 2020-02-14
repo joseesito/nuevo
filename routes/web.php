@@ -32,4 +32,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('inscriptions','InscriptionController');
     Route::resource('courses','CourseController');
     Route::resource('locations','LocationController');
+    Route::resource('facilitadors','FacilitadorController');
 });

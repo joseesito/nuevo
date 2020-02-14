@@ -35,9 +35,9 @@ class ParticipantController extends Controller
     {
         $company =Company::pluck('name','id');
         $unity = Unity::pluck('name','id');
-        $roles = Role::where('id','=',4)
+        $roles = Role::where('id','=',2)
             ->pluck('name','id');
-
+      
         return view('participants.create',compact('roles','company','unity'));
     }
 
@@ -73,19 +73,20 @@ class ParticipantController extends Controller
         $company =Company::pluck('name','id');
         $unity = Unity::pluck('name','id');
         $user = User::find($id);
-        $roles = Role::where('id','=',4) ->pluck('name','id');
+        $roles = Role::where('id','=',2) ->pluck('name','id');
         $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('participants.edit',compact('user','roles','userRole','company','unity'));
+        return view('participants.edit',compact('user','roles','company','unity'));
     }
 
     public function update(Request $request, $id)
     {
+        
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+            
         ]);
 
         $input = $request->all();
@@ -97,14 +98,14 @@ class ParticipantController extends Controller
 
 
         $user = User::find($id);
+        
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        //DB::table('model_has_roles')->where('model_id',$id)->delete();
 
+        $user->assignRole('participante');
+        
 
-        $user->assignRole($request->input('roles'));
-
-
-        return redirect()->route('users.index')
+        return redirect()->route('participants.index')
             ->with('Mensaje','User updated successfully');
     }
 
@@ -113,7 +114,7 @@ class ParticipantController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
+        return redirect()->route('participants.index')
             ->with('Mensaje','User deleted successfully');
     }
 }

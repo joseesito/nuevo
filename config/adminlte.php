@@ -90,7 +90,7 @@ return [
         ],
         [
             'text' => 'Facilitadores',
-            'url' => 'users',
+            'url' => 'facilitadors',
             'icon' => 'fas fa-fw fa fa-users'
         ],
 
@@ -108,7 +108,11 @@ return [
             'url' => 'roles',
             'icon' => 'fas fa-fw fa-unlock-alt'
         ],
-
+        [
+            'text' => 'Usuarios',
+            'url' => 'users',
+            'icon' => 'fas fa-fw fa fa-users'
+        ],
 
 ],
 

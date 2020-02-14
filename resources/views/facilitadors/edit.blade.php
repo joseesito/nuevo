@@ -9,10 +9,10 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Editar nuevo Participante</h2>
+            <h2>Editar nuevo Facilitador</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('participants.index') }}"> Volver</a>
+            <a class="btn btn-primary" href="{{ route('facilitadors.index') }}"> Volver</a>
         </div>
     </div>
 </div>
@@ -30,8 +30,8 @@
 @endif
 
 
-{!! Form::model($user, ['method' => 'PATCH','route' => ['participants.update', $user->id]]) !!}
-<<div class="row">
+{!! Form::model($user, ['method' => 'PATCH','route' => ['facilitadors.update', $user->id]]) !!}
+<div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Nombre:</strong>
@@ -62,13 +62,7 @@
         {!! Form::text('document', null, array('placeholder' => 'document','class' => 'form-control')) !!}
         </div>
         </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-        <strong>Estado</strong>
-        {!! Form::text('state', null, array('placeholder' => 'estado','class' => 'form-control')) !!}
-        </div>
-        </div>
-
+    
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Email:</strong>
@@ -87,6 +81,7 @@
             {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
         </div>
     </div>
+    
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
         <button type="submit" class="btn btn-primary">Agregar</button>
     </div>

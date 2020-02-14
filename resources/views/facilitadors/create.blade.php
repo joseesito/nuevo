@@ -9,10 +9,10 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Editar nuevo Participante</h2>
+            <h2>Crear nuevo Facilitador</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('participants.index') }}"> Volver</a>
+            <a class="btn btn-primary" href="{{ route('facilitadors.index') }}"> Volver</a>
         </div>
     </div>
 </div>
@@ -20,7 +20,7 @@
 
 @if (count($errors) > 0)
   <div class="alert alert-danger">
-    <strong>Whoops!</strong> esta mal su input.<br><br>
+    <strong>opss!</strong> Tiene problemas con su input.<br><br>
     <ul>
        @foreach ($errors->all() as $error)
          <li>{{ $error }}</li>
@@ -30,8 +30,9 @@
 @endif
 
 
-{!! Form::model($user, ['method' => 'PATCH','route' => ['participants.update', $user->id]]) !!}
-<<div class="row">
+
+{!! Form::open(array('route' => 'facilitadors.store','method'=>'POST')) !!}
+<div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Nombre:</strong>

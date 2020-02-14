@@ -9,11 +9,11 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Administrar Participantes</h2>
+                <h2>Administrar Facilitadores</h2>
             </div>
             <div class="pull-right">
-                @can('user-create')
-                    <a class="btn btn-success" href="{{ route('participants.create') }}"> Crear nuevo User</a>
+                @can('facilitador-create')
+                    <a class="btn btn-success" href="{{ route('facilitadors.create') }}"> Crear nuevo Facilitador</a>
                 @endcan
             </div>
         </div>
@@ -50,18 +50,27 @@
         <tr>
             <th>Nro</th>
             <th>Nombre Completos</th>
-            <th>Cargo</th>
-            <th>Area</th>
+            <th>Apellido</th>
+            <th>Documento</th>
+            <th>Estado</th>
             <th>Email</th>
-            <th>Roles</th>
             <th width="280px">Actionn</th>
         </tr>
         @foreach ($data as $key => $user)
             <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $user->name }}</td>
-                <td>{{ $user->position }}</td>
-                <td>{{ $user->area }}</td>
+                <td>{{ $user->last_name }}</td>
+                <td>{{ $user->document }}</td>
+                @if($user->state==1)
+                <td>
+                <label class="label label-primary">Activo</label>
+                </td>    
+                @else
+                <td>
+                <label class="label label-warning">Inactivo</label>
+                </td>
+                @endif
                 <td>{{ $user->email }}</td>
                 <td>
                     @if(!empty($user->getRoleNames()))
@@ -71,14 +80,14 @@
                     @endif
                 </td>
                 <td>
-                    @can('user-list')
-                        <a class="btn btn-info" href="{{ route('participants.show',$user->id) }}">Mostrar</a>
+                    @can('facilitador-list')
+                        <a class="btn btn-info" href="{{ route('facilitadors.show',$user->id) }}">Mostrar</a>
                     @endcan
-                    @can('user-edit')
-                        <a class="btn btn-primary" href="{{ route('participants.edit',$user->id) }}">Editar</a>
+                    @can('facilitador-edit')
+                        <a class="btn btn-primary" href="{{ route('facilitadors.edit',$user->id) }}">Editar</a>
                     @endcan
-                    {!! Form::open(['method' => 'DELETE','route' => ['participants.destroy', $user->id],'style'=>'display:inline']) !!}
-                    @can('user-delete')
+                    {!! Form::open(['method' => 'DELETE','route' => ['facilitadors.destroy', $user->id],'style'=>'display:inline']) !!}
+                    @can('facilitador-delete')
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     @endcan
                     {!! Form::close() !!}
@@ -90,4 +99,11 @@
 
 
 {!! $data->render() !!}
+@section('js')
+
+
+    @endsection
+
+
+
 @stop

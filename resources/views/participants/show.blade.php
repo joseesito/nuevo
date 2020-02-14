@@ -13,7 +13,7 @@
             <h2> Show User</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('users.index') }}"> Regresar</a>
+            <a class="btn btn-primary" href="{{ route('facilitadors.index') }}"> Regresar</a>
         </div>
     </div>
 </div>
