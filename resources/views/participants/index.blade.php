@@ -66,7 +66,7 @@
                 <td>{{ $user->name }} {{ $user->last_name }}</td>
                 <td>{{ $user->position }}</td>
                 <td>{{ $user->area }}</td>
-                <td></td>
+                <td>{{ $user->management }}</td>
                 <td>{{ $user->company }}</td>
                 <td>{{ $user->unity }}</td>
                 <td>

@@ -13,20 +13,20 @@ class UnityTableSeeder extends Seeder
      */
     public function run()
     {
-        Unity::insert([
-            'name'=>'Toquepala',
-            'address' =>'empresa@ighgroup.com',
+        Unity::create([
+            'name'=>'TOQUEPALA',
+            'address' =>'Unidad minera',
         ]);
-        Unity::insert([
-             'name' =>'Quajome',
-             'address' =>'empresa@ighgroup.com',
+        Unity::create([
+             'name' =>'CUAJONE',
+             'address' =>'Unidad minera',
         ]);
-        Unity::insert([
-            'name' =>'Ilo',
-            'address' =>'empresa@ighgroup.com'
+        Unity::create([
+            'name' =>'ILO',
+            'address' =>'Unidad minera'
        ]);
 
-        Unity::insert([
+        Unity::create([
             'name' =>'All',
             'address' =>'Av la aencalada'
         ]);

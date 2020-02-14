@@ -22,7 +22,7 @@ class ParticipantController extends Controller
     public function index(Request $request)
     {
         $data = User::select('users.id', 'users.document', 'users.name', 'users.last_name', 'users.position', 'users.area',
-            'users.state',
+            'users.state', 'users.management',
             'companies.name as company', 'unities.name as unity',  'users.email')
             ->join('model_has_roles','users.id','=','model_has_roles.model_id')
             ->join('companies', 'companies.id', '=', 'users.company_id')

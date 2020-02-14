@@ -14,13 +14,12 @@ class CompanyTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('companies')->insert([
-            'ruc'=>'78945612345',
-            'name' =>'Company',
-            'address' =>'Company@ighgroup.com',
+        \App\Company::create([
+            'ruc'=>'20100147514',
+            'name' =>'SOUTHERN PERU COPPER CORPORATION SUCURSAL DEL PERU',
+            'address' =>'Av. Caminos del Inca Nro. 171 Chacarilla del Estanque Santiago de Surco Lima, Perú',
             'phone' =>'922570393'
         ]);
-
 
     }
 }
