@@ -12,28 +12,30 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        \App\User::create([
             'company_id'=>'1',
-            'type_document' =>'DNI',
+            'type_document' =>'1',
             'unity_id'=>'1',
             'document'=>'12345678',
             'last_name'=> 'root',
             'name'=>'root',
             'email'=>'root@hotmail.com',
             'password'=>bcrypt('root')
-            
+
         ]);
-        DB::table('users')->insert([
+        \App\User::create([
             'company_id'=>'1',
-            'type_document' =>'DNI',
+            'type_document' =>'1',
             'unity_id'=>'1',
-            'document'=>'23568978',
-            'last_name'=> 'visitante',
-            'name'=>'visitante',
-            'email'=>'visitante@hotmail.com',
-            'password'=>bcrypt('visitante')
-            
+            'document'=>'46185127',
+            'name'=>'HENRRY JOEL',
+            'last_name'=> 'SAIRITUPAC ARONES',
+            'position'=> 'ANALISTA PROGRADOR',
+            'area'=> 'TECNOLOGIA DE LA INFORMACION',
+            'management'=> 'TI',
+            'email'=>'henrry.saa@gmail.com',
+            'password'=>bcrypt('123456')
         ]);
-        
+
     }
 }

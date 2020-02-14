@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\TypeCourse;
 
 class TypeCoursesTableSeeder extends Seeder
 {
@@ -12,9 +13,8 @@ class TypeCoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('type_courses')->insert([
-            'name'=>'Prevencion de riesgos'
+        TypeCourse::insert([
+            'name'=>'ANEXO 6'
         ]);
-      
     }
 }

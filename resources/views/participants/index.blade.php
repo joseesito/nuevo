@@ -9,11 +9,13 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Administrar Participantes</h2>
+                <h2>Participantes</h2>
             </div>
             <div class="pull-right">
                 @can('user-create')
-                    <a class="btn btn-success" href="{{ route('participants.create') }}"> Crear nuevo User</a>
+                    <a class="btn btn-default" href="{{ route('participants.create') }}"> Formato</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants"> Asignación masiva</button>
+                    <a class="btn btn-success" href="{{ route('participants.create') }}"> Crear nuevo participante</a>
                 @endcan
             </div>
         </div>
@@ -28,7 +30,6 @@
                 <span aria-hidden="true">&times;</span>
             </button>
 
-
             {{ Session::get('Mensaje')}}
         </div>
 
@@ -41,7 +42,6 @@
             <button type="button" class="close" data-dismiss="alert alert-label">
                 <span aria-hidden="true">&times;</span>
             </button>
-
             {{ Session::get('Mensaje2')}}
         </div>
     @endif
@@ -49,25 +49,31 @@
     <table class="table table-bordered">
         <tr>
             <th>Nro</th>
+            <th>Dni</th>
             <th>Nombre Completos</th>
             <th>Cargo</th>
             <th>Area</th>
-            <th>Email</th>
-            <th>Roles</th>
-            <th width="280px">Actionn</th>
+            <th>Gerencia</th>
+            <th>Empresa</th>
+            <th>Unidad Minera</th>
+            <th>estado</th>
+            <th width="280px">Acciones</th>
         </tr>
         @foreach ($data as $key => $user)
             <tr>
                 <td>{{ ++$i }}</td>
-                <td>{{ $user->name }}</td>
+                <td>{{ $user->document }}</td>
+                <td>{{ $user->name }} {{ $user->last_name }}</td>
                 <td>{{ $user->position }}</td>
                 <td>{{ $user->area }}</td>
-                <td>{{ $user->email }}</td>
+                <td>{{ $user->management }}</td>
+                <td>{{ $user->company }}</td>
+                <td>{{ $user->unity }}</td>
                 <td>
-                    @if(!empty($user->getRoleNames()))
-                        @foreach($user->getRoleNames() as $v)
-                            <label class="badge badge-success">{{ $v }}</label>
-                        @endforeach
+                    @if($user->state == 1)
+                        <span class="label bg-green">activo</span>
+                    @else
+                        <span class="label bg-red">desactivado</span>
                     @endif
                 </td>
                 <td>
@@ -87,7 +93,31 @@
         @endforeach
     </table>
 
+    <div id="modalParticipants" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Registro masivo de participantes</h4>
+                </div>
+                <form action="{{ route('participants.edit', ['id' => Request::segment(2)]) }}" enctype="multipart/form-data" method="post" >
+                    <div class="modal-body">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="file_up">Archivo</label>
+                            <input id="file_up" name="file_up" type="file" accept=".xlsx">
+                            <p class="help-block">Subir archivos con formato .xlsx</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn bg-light-blue btn-sm">Cargar</button>
+                    </div>
 
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 {!! $data->render() !!}
-@stop
+@endsection
