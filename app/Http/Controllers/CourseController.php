@@ -48,9 +48,6 @@ class CourseController extends Controller
         $fields['validity'] = 1;
         $fields['type_validity'] = 3;
 
-
-        //dd($fields);
-
         $course = Course::create($fields);
 
         return redirect()->route('courses.index')

@@ -1,32 +1,31 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
-
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\User;
 use App\Company;
 use App\Unity;
+use App\User;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 
-
-class UserController extends Controller
+class ParticipantController extends Controller
 {
     function __construct(){
-        $this->middleware('permission:course-list');
-        $this->middleware('permission:course-create',['only'=>['create','store']]);
-        $this->middleware('permission:course-edit',['only'=>['edit','update']]);
-        $this->middleware('permission:course-delete',['only'=>['destroy']]);
+        $this->middleware('permission:user-list');
+        $this->middleware('permission:user-create',['only'=>['create','store']]);
+        $this->middleware('permission:user-edit',['only'=>['edit','update']]);
+        $this->middleware('permission:user-delete',['only'=>['destroy']]);
     }
-    //listarrr
+
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
+        $data = User::join('model_has_roles','users.id','=','model_has_roles.model_id')
+            ->where('model_has_roles.role_id', 2)
+            ->orderBy('id','DESC')->paginate(5);
+
+        return view('participants.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -37,14 +36,10 @@ class UserController extends Controller
         $company =Company::pluck('name','id');
         $unity = Unity::pluck('name','id');
         $roles = Role::where('id','=',4)
-        ->pluck('name','id');
+            ->pluck('name','id');
 
-
-
-
-        return view('users.create',compact('roles','company','unity'));
+        return view('participants.create',compact('roles','company','unity'));
     }
-
 
 
     public function store(Request $request)
@@ -53,32 +48,25 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            //'roles' => 'required'
         ]);
-
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
-
         $user = User::create($input);
-        $user->assignRole($request->input('roles'));
 
+        $user->assignRole('participante');
 
-
-        return redirect()->route('users.index')
-                        ->with('Mensaje','User created successfully');
+        return redirect()->route('participants.index')
+            ->with('Mensaje','El participante fue creado correctamente');
     }
-
-
 
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show',compact('user'));
+        return view('participants.show',compact('user'));
     }
-
-
 
     public function edit($id)
     {
@@ -88,7 +76,7 @@ class UserController extends Controller
         $roles = Role::where('id','=',4) ->pluck('name','id');
         $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('users.edit',compact('user','roles','userRole','company','unity'));
+        return view('participants.edit',compact('user','roles','userRole','company','unity'));
     }
 
     public function update(Request $request, $id)
@@ -117,7 +105,7 @@ class UserController extends Controller
 
 
         return redirect()->route('users.index')
-                        ->with('Mensaje','User updated successfully');
+            ->with('Mensaje','User updated successfully');
     }
 
 
@@ -126,6 +114,6 @@ class UserController extends Controller
     {
         User::find($id)->delete();
         return redirect()->route('users.index')
-                        ->with('Mensaje','User deleted successfully');
+            ->with('Mensaje','User deleted successfully');
     }
 }

@@ -7,49 +7,52 @@
 
 @section('content')
     <div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Usuarios Administrar</h2>
-        </div>
-        <div class="pull-right">
-        @can('user-create')
-            <a class="btn btn-success" href="{{ route('users.create') }}"> Crear nuevo User</a>
-        @endcan
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h2>Usuarios Administrar</h2>
+            </div>
+            <div class="pull-right">
+                @can('user-create')
+                    <a class="btn btn-success" href="{{ route('participants.create') }}"> Crear nuevo User</a>
+                @endcan
+            </div>
         </div>
     </div>
-</div>
 
-          @if(Session::has('Mensaje'))
+    @if(Session::has('Mensaje'))
 
-              <div class="alert alert-success" role="alert">
+        <div class="alert alert-success" role="alert">
 
-              <strong font size=7 >Aviso: </strong> {{session('flash')}}
-              <button type="button" class="close" data-dismiss="alert alert-label">
-               <span aria-hidden="true">&times;</span>
-              </button>
+            <strong font size=7 >Aviso: </strong> {{session('flash')}}
+            <button type="button" class="close" data-dismiss="alert alert-label">
+                <span aria-hidden="true">&times;</span>
+            </button>
 
 
-          {{ Session::get('Mensaje')}}
-          </div>
+            {{ Session::get('Mensaje')}}
+        </div>
 
-        @endif
+    @endif
 
-        @if(Session::has('Mensaje2'))
-            <div class="alert alert-danger" role="alert">
+    @if(Session::has('Mensaje2'))
+        <div class="alert alert-danger" role="alert">
 
-                <strong font size=7 >Aviso: </strong> {{session('flash')}}
-                <button type="button" class="close" data-dismiss="alert alert-label">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <strong font size=7 >Aviso: </strong> {{session('flash')}}
+            <button type="button" class="close" data-dismiss="alert alert-label">
+                <span aria-hidden="true">&times;</span>
+            </button>
 
-                {{ Session::get('Mensaje2')}}
-            </div>
-        @endif
+            {{ Session::get('Mensaje2')}}
+        </div>
+    @endif
 
     <table class="table table-bordered">
         <tr>
             <th>Nro</th>
             <th>Nombre Completos</th>
+            <th>Cargo</th>
+            <th>Area</th>
+
             <th>Email</th>
             <th>Roles</th>
             <th width="280px">Actionn</th>
@@ -58,6 +61,8 @@
             <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $user->name }}</td>
+                <td>{{ $user->position }}</td>
+                <td>{{ $user->area }}</td>
                 <td>{{ $user->email }}</td>
                 <td>
                     @if(!empty($user->getRoleNames()))

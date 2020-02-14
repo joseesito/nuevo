@@ -57,7 +57,7 @@ return [
 
         [
             'text' => 'Participantes',
-            'url' => 'users',
+            'url' => 'participants',
             'icon' => 'fas fa-fw fa fa-users'
         ],
 
@@ -102,7 +102,7 @@ return [
             'url' => 'roles',
             'icon' => 'fas fa-fw fa-list'
         ],
-        
+
         [
             'text' => 'Permisos',
             'url' => 'roles',
