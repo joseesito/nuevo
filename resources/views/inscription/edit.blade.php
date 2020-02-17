@@ -3,7 +3,7 @@
 @section('title', 'Southern')
 
 @section('content_header')
-@stop
+@endsection
 
 @section('content')
 
@@ -17,16 +17,32 @@
     <div class="col-md-8">
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Editar Inscription</h3>
-        </div> 
+          <h3 class="box-title">Editar Programacón</h3>
+        </div>
         {!! Form::model($inscription, ['route' => ['inscriptions.update', $inscription->id], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
         @include('Inscription.partials.form')
         {!! Form::close() !!}
-      </div>         
+      </div>
     </div>
   </div>
-</section> 
+</section>
+@endsection
 
+@section('js')
 
+    <script>
+        $(function () {
+            $('.datepicker').datetimepicker({
+                locale: 'es',
+                format: 'L'
+            });
 
-@stop
+            $('.timepicker').datetimepicker({
+                locale: 'es',
+                format: 'HH:mm A'
+            });
+            $('.selection-input').select2();
+        });
+
+    </script>
+@endsection

@@ -49,7 +49,7 @@
             <th>id</th>
             <th>lugar</th>
             <th>Curso</th>
-            <th>Fecha Inicio</th>
+            <th>Fecha</th>
             <th>Hora</th>
             <th>Dirección</th>
             <th>Unidad</th>
@@ -60,8 +60,8 @@
             <td>{{ $inscription->id }}</td>
             <td>{{ $inscription->location }}</td>
 	        <td>{{ $inscription->name }}</td>
-            <td>{{ $inscription->start_date}}</td>
-            <td>{{ $inscription->hours }}</td>
+            <td>{{ $inscription->start_date }}</td>
+            <td>{{ $inscription->time }}</td>
             <td>{{ $inscription->address }}</td>
             <td>{{ $inscription->unity }}</td>
 	        <td>

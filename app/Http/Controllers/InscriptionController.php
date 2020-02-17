@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
+use App\InscriptionUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -53,19 +54,18 @@ class InscriptionController extends Controller
 
         $locations = Location::pluck('name','id');
         $courses = Course::pluck('name','id');
-        $users = User::pluck('name','id');
+        $users = User::select(
+            'users.id',
+            DB::raw('CONCAT(users.name, " ",users.last_name) AS full_name'))
+            ->join('model_has_roles','users.id','=','model_has_roles.model_id')
+            ->where('users.state', 1)
+            ->where('model_has_roles.role_id', 4)
+            ->pluck('full_name', 'id');
         return view('inscription.create',compact('locations','courses','users','unity'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-
         $user = Auth::user();
 
         $this->validate($request ,[
@@ -83,8 +83,8 @@ class InscriptionController extends Controller
         $course = DB::table('courses')
         ->where('id',$request->course_id)
         ->first();
-        //dd('jgbjjh');
 
+        dd($request->all());
         $inscription = new Inscription;
         $inscription->course_id = $request->course_id;
         $inscription->location_id = $request->location_id;
@@ -132,18 +132,17 @@ class InscriptionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Inscription $inscription)
-
     {
-
         $users = Auth::user();
         $locations = Location::pluck('name','id');
         $courses = Course::pluck('name','id');
-        $users = DB::table('users')
-            ->select(
-                DB::raw('CONCAT(name, " ",last_name) AS nombre_completo, users.id AS id')
-            )
+        $users = User::select(
+            'users.id',
+            DB::raw('CONCAT(users.name, " ",users.last_name) AS full_name'))
+            ->join('model_has_roles','users.id','=','model_has_roles.model_id')
             ->where('users.state', 1)
-            ->pluck('nombre_completo', 'id');
+            ->where('model_has_roles.role_id', 4)
+            ->pluck('full_name', 'id');
 
         return view('inscription.edit',compact('inscription','locations','courses','users'));
     }
@@ -221,7 +220,7 @@ class InscriptionController extends Controller
         if($inscripti==1){
             Inscription:: where('id','=',$id)->update(['state'=> '0']);
 
-            return redirect()->back()->with('Mensaje', 'la eliminacion del Curso :    '.''. $inscription->name .''.''. '  en la hora Programada: '.''. $inscription->hours.''. ' fue Realizada.');
+            return redirect()->back()->with('Mensaje', 'la eliminación del Curso :    '.''. $inscription->name .''.''. '  en la hora Programada: '.''. $inscription->hours.''. ' fue Realizada.');
 
         }else{
 
@@ -231,7 +230,66 @@ class InscriptionController extends Controller
 
 
     public function register(Inscription $inscription) {
-        return view('inscription.register',compact('inscription'));
+        $user = Auth::user();
+        $participants = User::select(
+            'users.id',
+            DB::raw('CONCAT(users.document," | ",users.name, " ",users.last_name," | ", companies.name, " | ", unities.name) AS full_name'))
+            ->join('model_has_roles','users.id','=','model_has_roles.model_id')
+            ->join('companies', 'companies.id', '=', 'users.company_id')
+            ->join('unities', 'unities.id', '=', 'users.unity_id')
+            ->where('users.state', 1)
+            ->where('users.unity_id',$user->unity_id)
+            ->where('model_has_roles.role_id', 2)
+            ->get();
+
+        return view('inscription.register',compact('inscription', 'participants'));
     }
 
+
+    public function register_save(Request $request, Inscription $inscription)
+    {
+        $user = Auth::user();
+        // Validamos de que seleccione por lo menos un participante
+        $fields = request()->validate([
+            'participants' => 'required',
+        ]);
+
+        // recuperamoos a los participantes
+        $participants = User::whereIn('id',$request->participants);
+
+        // Guardamos la relacion de participantes
+        foreach ($participants->get() as $participant) {
+            $iu = InscriptionUser::create([
+                'inscription_id' => $inscription->id,
+                'user_id' => $participant->id,
+                'company_id' => $participant->company_id,
+                'unity_id' => $participant->unity_id,
+                'user_created' => $user->id,
+            ]);
+        }
+
+        // Disminuimos el numero de vacantes
+        $inscription->decrement('slot',$participants->count());
+
+        return redirect()->route('inscriptions.grade', compact('inscription'))
+            ->with('success', 'Se registrarón'. $participants->count(). ' participante(s');
+    }
+
+    public function grade(Inscription $inscription) {
+
+        $user = Auth::user();
+
+        $participants = DB::table('inscription_user')
+            ->select('inscription_user.*',
+                'users.document',
+                DB::raw('CONCAT(users.last_name, " ", users.name) as full_name'),
+                'companies.name as company')
+            ->join('users', 'users.id', '=', 'inscription_user.user_id')
+            ->join('companies', 'companies.id', '=', 'inscription_user.company_id')
+            ->where('inscription_user.inscription_id', $inscription->id)
+            ->whereIn('inscription_user.state', [1,2])
+        ->get();
+
+        return view('inscription.grade',compact('inscription', 'participants'));
+    }
 }

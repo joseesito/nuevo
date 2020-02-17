@@ -27,3 +27,23 @@
     </section>
 
 @endsection
+
+@section('js')
+
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datetimepicker({
+                locale: 'es',
+                format: 'L'
+            });
+
+            $('.timepicker').datetimepicker({
+                locale: 'es',
+                format: 'HH:mm A'
+            });
+            $('.selection-input').select2({
+                theme: "bootstrap"
+            });
+        });
+    </script>
+@endsection

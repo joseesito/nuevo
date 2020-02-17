@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('inscriptions','InscriptionController');
     Route::get('inscriptions/register/{inscription}', 'InscriptionController@register')->name('inscriptions.register');
-    Route::get('inscriptions/register-grade', 'InscriptionController@grade')->name('inscriptions.register_gradre');
+    Route::post('inscriptions/register/{inscription}', 'InscriptionController@register_save')->name('inscriptions.register_save');
+    Route::get('inscriptions/register-grade/{inscription}', 'InscriptionController@grade')->name('inscriptions.grade');
 
 });
