@@ -41,7 +41,7 @@
                 <div class="form-group" >
                 
                 {!! Form::label('start_date', 'Fecha') !!}
-			        {!! Form::text('start_date', null, ['class' => 'form-control datepicker ','autocomplete' =>'off', 'placeholder' => 'Ingresa fecha','required' => 'required']) !!}
+			        {!! Form::text('start_date', null, ['class' => 'form-control datepicker ', 'data-date-format'=>'yyyy-mm-dd' ,'autocomplete' =>'off', 'placeholder' => 'Ingresa fecha','required' => 'required']) !!}
                 </div>
                 <div class="form-group" >
                 {!! Form::label('time', 'Hora') !!}
@@ -82,7 +82,9 @@
     
     
         <script>
-           $('.datepicker').datepicker();
+           $('.datepicker').datepicker({ 
+              
+               });
            $('.timepicker').timepicker({
             timeFormat: 'h:mm p',
             interval: 30,

@@ -13,8 +13,19 @@
             </div>
             <div class="pull-right">
                 @can('user-create')
-                    <a class="btn btn-default" href="{{ route('participants.create') }}"> Formato</a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants"> Asignación masiva</button>
+                    <a class="btn btn-success" href="{{ route('participants.create') }}"> Formato</a>
+                    
+                    <a class="btn btn-primary" href="/export"> Exportar</a>
+                    <form action ="{{route('participantes.import')}}"method="post" enctype="multipart/form-data">
+                    @csrf
+                    @if(Session::has('Mensaje'))
+                    <p>{{Session::get('Mensaje')}}</p>
+                    @endif
+                    <input type="file" name="file" id="file">
+                    <button type="submit">importar</button>
+                   <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants">Asignación masiva</button>-->
+                   </form>
+                    
                     <a class="btn btn-success" href="{{ route('participants.create') }}"> Crear nuevo participante</a>
                 @endcan
             </div>
@@ -60,6 +71,7 @@
             <th width="280px">Acciones</th>
         </tr>
         @foreach ($data as $key => $user)
+        <body>
             <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $user->document }}</td>
@@ -90,6 +102,7 @@
                     {!! Form::close() !!}
                 </td>
             </tr>
+        </body>
         @endforeach
     </table>
 

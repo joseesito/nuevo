@@ -20,6 +20,7 @@ class FacilitadorController extends Controller
     
         public function index(Request $request)
         {
+            
             $data = User::join('model_has_roles','users.id','=','model_has_roles.model_id')
                 ->where('model_has_roles.role_id', 4)
                 ->orderBy('id','DESC')->paginate(5);

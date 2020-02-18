@@ -6,10 +6,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Permission\Models\Role;
 use App\User;
 use App\Company;
+use App\Exports\UsersExport;
 use App\Unity;
-use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 
@@ -128,5 +130,10 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect()->route('users.index')
                         ->with('Mensaje','User deleted successfully');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new UsersExport, 'user-list.xlsx');
     }
 }

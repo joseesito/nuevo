@@ -1,5 +1,5 @@
 <?php
-
+use App\Exports\InscriptionExport;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('user-list-excel', 'UserController@exportExcel')->name('users.excel');
+///participants','ParticipantController@index
+Route::get('/export','ParticipantController@export')->name('participants.export');
+Route::post('/import','ParticipantController@import')->name('participantes.import');
 
 Route::group(['middleware' => ['auth']], function() {
 

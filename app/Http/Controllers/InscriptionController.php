@@ -29,17 +29,17 @@ class InscriptionController extends Controller
         DB::raw('COUNT(UI.id) as alumnos_matriculados'))
         ->leftjoin('inscription_user as UI',function($join){
             $join->on('UI.inscription_id','=','in.id')
-            ->where('UI.state','<>',0);
+            ->where('in.state','<>',0);
         })
         ->join('courses as cur','cur.id','in.course_id')
         ->join('users as u','u.id','=','in.user_id')
         ->join('unities as uni','uni.id','=','in.unity_id')
         
         ->join('locations as lo','lo.id','=','in.location_id')
-        ->where('start_date','>',date('2000-01-01'))
+        ->where('start_date','>',date('2005-00-00'))
         
         ->where('in.state','=',1)
-        ->groupBy('in.id') 
+        ->groupBy('in.id')
         ->orderBy('in.start_Date','asc')
         ->get();
 
