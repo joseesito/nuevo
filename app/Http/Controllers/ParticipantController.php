@@ -22,9 +22,15 @@ class ParticipantController extends Controller
 
     function __construct(){
         $this->middleware('permission:participant-list');
+<<<<<<< HEAD
         $this->middleware('permission:user-create',['only'=>['create','store']]);
         $this->middleware('permission:user-edit',['only'=>['edit','update']]);
         $this->middleware('permission:user-delete',['only'=>['destroy']]);
+=======
+        $this->middleware('permission:participant-create',['only'=>['create','store']]);
+        $this->middleware('permission:participant-edit',['only'=>['edit','update']]);
+        $this->middleware('permission:participant-delete',['only'=>['destroy']]);
+>>>>>>> 78fad8740184c5fd811ec2b47908985327ab16ae
     }
 
     public function index(Request $request)
@@ -98,7 +104,7 @@ class ParticipantController extends Controller
         $unity = Unity::pluck('name','id');
         $roles = Role::where('id','=',2)
             ->pluck('name','id');
-      
+
         return view('participants.create',compact('roles','company','unity'));
     }
 
@@ -143,7 +149,7 @@ class ParticipantController extends Controller
 
     public function update(Request $request, $id)
     {
-        
+
         $this->validate($request, [
             'document' => 'required|min:8|alpha_num',
             'name' => 'required',
@@ -159,7 +165,7 @@ class ParticipantController extends Controller
 
 
         $user = User::find($id);
-        
+
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
@@ -167,7 +173,7 @@ class ParticipantController extends Controller
         $user->assignRole('participante');
 
         $user->assignRole('participante');
-        
+
 
         return redirect()->route('participants.index')
             ->with('Mensaje','El participante '. $request->name .' ' .$request->last_name. ' fue actualizado correctamente.');

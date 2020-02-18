@@ -33,8 +33,21 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('products','ProductController');
     Route::resource('courses','CourseController');
     Route::resource('type_courses','TipoCourseController');
-    Route::resource('inscriptions','InscriptionController');
     Route::resource('courses','CourseController');
     Route::resource('locations','LocationController');
     Route::resource('facilitadors','FacilitadorController');
+
+    /**
+     *
+     * rutas de inscription
+     *
+    **/
+
+    Route::resource('inscriptions','InscriptionController');
+    Route::get('inscriptions/register/{inscription}', 'InscriptionController@register')->name('inscriptions.register');
+    Route::post('inscriptions/register/{inscription}', 'InscriptionController@register_save')->name('inscriptions.register_save');
+    Route::get('inscriptions/register-grade/{inscription}', 'InscriptionController@grade')->name('inscriptions.grade');
+    Route::get('inscriptions/export-list-excel/{inscription}', 'InscriptionController@exportExcel')->name('inscriptions.export');
+    Route::post('inscriptions/import-list-excel/{inscription}', 'InscriptionController@importExcel')->name('inscriptions.import');
+
 });

@@ -32,14 +32,12 @@ class InscriptionImport implements ToModel
     ->where($row[5],'=','unity.name')
     ->get();
 
-    
     $unity= Unity::where($row[5],'=','unities.name')
                 ->pluck('name','id');
                
     $company= Company::where($row[8],'=','ruc')
-                ->pluck('name','id','ruc');    
-
-
+                ->pluck('name','id','ruc');
+                   
         return new User([
 
             'id' => $row[0],

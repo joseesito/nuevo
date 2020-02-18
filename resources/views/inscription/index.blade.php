@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Inscription Curso</h2>
+                <h2>Programación de cursos</h2>
             </div>
             <div class="pull-right">
                 @can('inscription-create')
@@ -21,39 +21,21 @@
             </div>
         </div>
     </div>
-    <body>
 
-        
-          @if(Session::has('Mensaje'))
+
+      @if(Session::has('Mensaje'))
 
           <div class="alert alert-success" role="alert">
 
           <strong font size=7 >Aviso: </strong> {{session('flash')}}
-          <button type="button" class="close" data-dismiss="alert" alert-label
+          <button type="button" class="close" data-dismiss="alert alert-label">
            <span aria-hidden="true">&times;</span>
           </button>
-       
-       
+
           {{ Session::get('Mensaje')}}
           </div>
+      @endif
 
-        @endif
-
-        @if(Session::has('Mensaje2'))
-
-            <div class="alert alert-danger" role="alert">
-
-            <strong font size=7 >Aviso: </strong> {{session('flash')}}
-            <button type="button" class="close" data-dismiss="alert" alert-label
-            <span aria-hidden="true">&times;</span>
-            </button>
-
-
-            {{ Session::get('Mensaje2')}}
-          </div>
-          @endif
-
-          </body>
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -64,55 +46,40 @@
 
     <table class="table table-bordered">
         <tr>
+            <th>id</th>
             <th>lugar</th>
             <th>Curso</th>
-            <th>Fecha Inicio</th>
+            <th>Fecha</th>
             <th>Hora</th>
-            <th>Vacantes</th>
-            
-            <th width="280px">Action</th>
+            <th>Dirección</th>
+            <th>Unidad</th>
+            <th width="280px">Acciones</th>
         </tr>
-	    @foreach ($inscription as $inscriptio)
+	    @foreach ($inscriptions as $inscription)
 	    <tr>
-        <td>{{ $inscriptio->nameLocation }}</td>
-	        <td>{{ $inscriptio->namecurso }}</td>
-            <td>{{ $inscriptio->start_date}}</td>
-            <td>{{ $inscriptio->hours }}</td>  
-            <td>{{ $inscriptio->slot}}</td>
-            @if($inscriptio->type_validity==1)
-                @if($inscriptio->validity==1)
-                <td>{{$inscriptio->validity.' Dia'}}</td>
-                @else
-                <td>{{$inscriptio->validity.' Dias'}}</td>
-                @endif
-            @endif
-            @if($inscriptio->type_validity==2)
-                @if($inscriptio->validity==1)
-                <td>{{$inscriptio->validity.' Mes'}}</td>
-                @else
-                <td>{{$inscriptio->validity.' Meses'}}</td>
-                @endif
-            @endif
-            @if($inscriptio->type_validity==3)
-                @if($inscriptio->validity==1)
-                <td>{{$inscriptio->validity.' Año'}}</td>
-                @else
-                <td>{{$inscriptio->validity.' Años'}}</td>
-                @endif
-            @endif
-            
+            <td>{{ $inscription->id }}</td>
+            <td>{{ $inscription->location }}</td>
+	        <td>{{ $inscription->name }}</td>
+            <td>{{ $inscription->start_date }}</td>
+            <td>{{ $inscription->time }}</td>
+            <td>{{ $inscription->address }}</td>
+            <td>{{ $inscription->unity }}</td>
 	        <td>
-                <form action="{{ route('inscriptions.destroy',$inscriptio->id) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('inscriptions.show',$inscriptio->id) }}">Mostrar</a>
-                    @can('course-edit')
-                    <a class="btn btn-primary" href="{{ route('inscriptions.edit',$inscriptio->id) }}">Editar</a>
+                <form action="{{ route('inscriptions.destroy',$inscription->id) }}" method="POST">
+                    <a class="btn btn-info btn-sm" href="{{ route('inscriptions.show',$inscription->id) }}">Mostrar</a>
+                    @can('inscription-edit')
+                    <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.edit',$inscription->id) }}">Editar</a>
                     @endcan
-
-
                     @csrf
                     @method('DELETE')
-                    @can('course-delete')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    @can('inscription-delete')
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    @endcan
+                    @can('inscription-edit')
+                        <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.register',$inscription->id) }}">Registrar</a>
+                    @endcan
+                    @can('inscription-edit')
+                        <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.grade',$inscription->id) }}">Subir Notas</a>
                     @endcan
                 </form>
 	        </td>

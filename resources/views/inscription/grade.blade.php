@@ -9,13 +9,12 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Participantes</h2>
+                <h2>Curso {{ $inscription->name }} del {{ $inscription->start_date }} {{ $inscription->time }} </h2>
             </div>
             <div class="pull-right">
                 @can('participant-create')
-                    <a class="btn btn-default" href="{{ route('participants.create') }}"> Formato</a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants"> Asignación masiva</button>
-                    <a class="btn btn-success" href="{{ route('participants.create') }}"> Crear nuevo participante</a>
+                    <a class="btn btn-default" href="{{ route('inscriptions.export', $inscription->id) }}"> Exportar</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants"> Subir notas</button>
                 @endcan
             </div>
         </div>
@@ -35,63 +34,38 @@
 
     @endif
 
-    @if(Session::has('Mensaje2'))
-        <div class="alert alert-danger" role="alert">
-
-            <strong font size=7 >Aviso: </strong> {{session('flash')}}
-            <button type="button" class="close" data-dismiss="alert alert-label">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{ Session::get('Mensaje2')}}
-        </div>
-    @endif
-
     <table class="table table-bordered">
         <tr>
             <th>Nro</th>
             <th>Dni</th>
             <th>Nombre Completos</th>
-            <th>Cargo</th>
-            <th>Area</th>
-            <th>Gerencia</th>
             <th>Empresa</th>
-            <th>Unidad Minera</th>
             <th>estado</th>
-            <th width="280px">Acciones</th>
+            <th>nota</th>
+            <th>Acciones</th>
         </tr>
-        @foreach ($data as $key => $user)
-        <body>
+        @foreach ($participants as $participant)
             <tr>
-                <td>{{ ++$i }}</td>
-                <td>{{ $user->document }}</td>
-                <td>{{ $user->name }} {{ $user->last_name }}</td>
-                <td>{{ $user->position }}</td>
-                <td>{{ $user->area }}</td>
-                <td>{{ $user->management }}</td>
-                <td>{{ $user->company }}</td>
-                <td>{{ $user->unity }}</td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $participant->document }}</td>
+                <td>{{ $participant->full_name }}</td>
+                <td>{{ $participant->company }}</td>
                 <td>
-                    @if($user->state == 1)
+                    @if($participant->state == 1)
                         <span class="label bg-green">activo</span>
                     @else
                         <span class="label bg-red">desactivado</span>
                     @endif
                 </td>
+                <td>{{ $participant->grade }}</td>
                 <td>
-                    @can('participant-list')
-                        <a class="btn btn-info" href="{{ route('participants.show',$user->id) }}">Mostrar</a>
+                {!! Form::open(['method' => 'DELETE','route' => ['participants.destroy', $participant->id],'style'=>'display:inline']) !!}
+                @can('participant-delete')
+                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     @endcan
-                    @can('participant-edit')
-                        <a class="btn btn-primary" href="{{ route('participants.edit',$user->id) }}">Editar</a>
-                    @endcan
-                    {!! Form::open(['method' => 'DELETE','route' => ['participants.destroy', $user->id],'style'=>'display:inline']) !!}
-                    @can('participant-delete')
-                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                    @endcan
-                    {!! Form::close() !!}
+                {!! Form::close() !!}
                 </td>
             </tr>
-        </body>
         @endforeach
     </table>
 
@@ -100,13 +74,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Registro masivo de participantes</h4>
+                    <h4 class="modal-title"></h4>
                 </div>
-                <form action="{{ route('participants.edit', ['id' => Request::segment(2)]) }}" enctype="multipart/form-data" method="post" >
+                <form action="{{ route('inscriptions.import', $inscription->id) }}" enctype="multipart/form-data" method="post" >
                     <div class="modal-body">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="form-group">
-                            <label for="file_up">Archivo</label>
+                            <label for="file_up">Subir Notas</label>
                             <input id="file_up" name="file_up" type="file" accept=".xlsx">
                             <p class="help-block">Subir archivos con formato .xlsx</p>
                         </div>
@@ -121,5 +95,4 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-{!! $data->render() !!}
 @endsection

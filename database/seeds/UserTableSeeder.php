@@ -50,8 +50,8 @@ class UserTableSeeder extends Seeder
         ]);
         \App\User::create([
             'company_id'=>'1',
-            'type_document' =>'2',
-            'unity_id'=>'1',
+            'type_document' =>'1',
+            'unity_id'=>'2',
             'document'=>'46869815',
             'name'=>'JENY',
             'last_name'=> 'CHOCCA INGA',
