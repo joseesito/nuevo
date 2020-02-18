@@ -44,5 +44,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('inscriptions/register/{inscription}', 'InscriptionController@register_save')->name('inscriptions.register_save');
     Route::get('inscriptions/register-grade/{inscription}', 'InscriptionController@grade')->name('inscriptions.grade');
     Route::get('inscriptions/export-list-excel/{inscription}', 'InscriptionController@exportExcel')->name('inscriptions.export');
+    Route::post('inscriptions/import-list-excel/{inscription}', 'InscriptionController@importExcel')->name('inscriptions.import');
 
 });

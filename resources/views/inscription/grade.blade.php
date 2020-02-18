@@ -76,11 +76,11 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title"></h4>
                 </div>
-                <form action="{{ route('participants.edit', ['id' => Request::segment(2)]) }}" enctype="multipart/form-data" method="post" >
+                <form action="{{ route('inscriptions.import', $inscription->id) }}" enctype="multipart/form-data" method="post" >
                     <div class="modal-body">
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="form-group">
-                            <label for="file_up">Archivo</label>
+                            <label for="file_up">Subir Notas</label>
                             <input id="file_up" name="file_up" type="file" accept=".xlsx">
                             <p class="help-block">Subir archivos con formato .xlsx</p>
                         </div>

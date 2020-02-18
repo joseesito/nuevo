@@ -34,7 +34,8 @@ class CreateInscriptionsTable extends Migration
             $table->string('address')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('time')->nullable();
+            $table->string('time')->default(0);
+            $table->string('type')->nullable();
             $table->integer('slot')->nullable();
 
             // Campos historicos de la tabla curso.
