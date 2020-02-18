@@ -22,15 +22,9 @@ class ParticipantController extends Controller
 
     function __construct(){
         $this->middleware('permission:participant-list');
-<<<<<<< HEAD
-        $this->middleware('permission:user-create',['only'=>['create','store']]);
-        $this->middleware('permission:user-edit',['only'=>['edit','update']]);
-        $this->middleware('permission:user-delete',['only'=>['destroy']]);
-=======
         $this->middleware('permission:participant-create',['only'=>['create','store']]);
         $this->middleware('permission:participant-edit',['only'=>['edit','update']]);
         $this->middleware('permission:participant-delete',['only'=>['destroy']]);
->>>>>>> 78fad8740184c5fd811ec2b47908985327ab16ae
     }
 
     public function index(Request $request)

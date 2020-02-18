@@ -26,27 +26,6 @@ class InscriptionController extends Controller
     }
     public function index()
     {
-<<<<<<< HEAD
-        $inscription =DB::table('inscriptions as in')
-        ->select('in.id','u.name as name','in.name as namecurso','lo.name as nameLocation','uni.name','in.address','in.time','in.hours',
-        'in.grade_min','in.price','in.free','in.validity','in.type_validity','in.certificate','lo.name as namelocation','in.start_date',
-        'in.end_date','in.slot',
-        DB::raw('COUNT(UI.id) as alumnos_matriculados'))
-        ->leftjoin('inscription_user as UI',function($join){
-            $join->on('UI.inscription_id','=','in.id')
-            ->where('in.state','<>',0);
-        })
-        ->join('courses as cur','cur.id','in.course_id')
-        ->join('users as u','u.id','=','in.user_id')
-        ->join('unities as uni','uni.id','=','in.unity_id')
-        
-        ->join('locations as lo','lo.id','=','in.location_id')
-        ->where('start_date','>',date('2005-00-00'))
-        
-        ->where('in.state','=',1)
-        ->groupBy('in.id')
-        ->orderBy('in.start_Date','asc')
-=======
         // recuperamos el usuario facilitador
         $user = Auth::user();
         // recuperamos toda las programaciones de la "unidad minera" que pertenece el usuario facilitador
@@ -62,7 +41,6 @@ class InscriptionController extends Controller
         ->where('I.state','=',1)
         ->where('I.unity_id','=', $user->unity_id)
         ->orderBy('I.start_Date','asc')
->>>>>>> 78fad8740184c5fd811ec2b47908985327ab16ae
         ->get();
 
         return view('inscription.index',compact('inscriptions'));
