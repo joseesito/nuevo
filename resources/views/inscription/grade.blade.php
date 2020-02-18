@@ -13,7 +13,7 @@
             </div>
             <div class="pull-right">
                 @can('participant-create')
-                    <a class="btn btn-default" href="{{ route('inscription_user.export') }}"> Exportar</a>
+                    <a class="btn btn-default" href="{{ route('inscriptions.export', $inscription->id) }}"> Exportar</a>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants"> Subir notas</button>
                 @endcan
             </div>

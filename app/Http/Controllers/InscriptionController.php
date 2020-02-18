@@ -12,6 +12,8 @@ use App\Location;
 use App\Course;
 use App\Unity;
 use App\User;
+use Excel;
+use App\Exports\InscriptionUsersExport;
 
 class InscriptionController extends Controller
 {
@@ -84,7 +86,7 @@ class InscriptionController extends Controller
         ->where('id',$request->course_id)
         ->first();
 
-        dd($request->all());
+        // dd($request->all());
         $inscription = new Inscription;
         $inscription->course_id = $request->course_id;
         $inscription->location_id = $request->location_id;
@@ -277,8 +279,10 @@ class InscriptionController extends Controller
 
     public function grade(Inscription $inscription) {
 
+        // Recuperamos el usuario logueado
         $user = Auth::user();
 
+        // relacion de participantes inscritos en un determinada "$inscription"
         $participants = DB::table('inscription_user')
             ->select('inscription_user.*',
                 'users.document',
@@ -291,5 +295,10 @@ class InscriptionController extends Controller
         ->get();
 
         return view('inscription.grade',compact('inscription', 'participants'));
+    }
+
+    public function exportExcel(Inscription $inscription) {
+        $path = $inscription->id.' '.$inscription->name.' '.$inscription->start_date.'.xlsx';
+        return Excel::download(new InscriptionUsersExport($inscription->id), $path);
     }
 }

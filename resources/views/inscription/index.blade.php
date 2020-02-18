@@ -79,7 +79,7 @@
                         <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.register',$inscription->id) }}">Registrar</a>
                     @endcan
                     @can('inscription-edit')
-                        <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.edit',$inscription->id) }}">Subir Notas</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.grade',$inscription->id) }}">Subir Notas</a>
                     @endcan
                 </form>
 	        </td>
