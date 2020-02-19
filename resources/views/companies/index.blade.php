@@ -34,7 +34,7 @@
             <th>Dirección</th>
             <th>Telefono</th>
             <th>Estado</th>
-            <th>Acciones</th>
+            <th nowrap >Acciones</th>
         </tr>
 	    @foreach ($companies as $company)
 	    <tr>
@@ -47,7 +47,7 @@
             @else
                 <td><span class="label bg-yellow">Desactivado</span></td>
             @endif
-	        <td>
+	        <td nowrap>
                 <form action="{{ route('companies.destroy',$company->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('companies.show',$company->id) }}">Mostrar</a>
                     @can('course-edit')

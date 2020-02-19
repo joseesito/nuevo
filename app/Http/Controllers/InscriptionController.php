@@ -166,13 +166,12 @@ class InscriptionController extends Controller
             'address' => 'required',
             'slot' => 'required|min:0',
         ],
-            [
-                'start_date.required' => 'El campo fecha es requerido',
-                'address.required' => 'Dirección es requerida',
-                'slot.required' => 'Vacante requerida',
-                'slot.min' => 'la vacante debe de ser mayor a 1'
-            ]);
-
+        [
+            'start_date.required' => 'El campo fecha es requerido',
+            'address.required' => 'Dirección es requerida',
+            'slot.required' => 'Vacante requerida',
+            'slot.min' => 'la vacante debe de ser mayor a 1'
+        ]);
         $start_date = $request->start_date;
         $start_date = Carbon::createFromFormat('d/m/Y', $start_date);
         $fields['start_date'] = $start_date;
@@ -182,16 +181,17 @@ class InscriptionController extends Controller
             ->where('id',$request->course_id)
             ->first();
 
-            $inscription = Inscription::find($id);
-            $inscription->course_id = $request->course_id;
-            $inscription->location_id = $request->location_id;
-            $inscription->slot=$request->slot;
-            $inscription->user_id =$request->user_id;
-            $inscription->address =$request->address;
-            $inscription->time =$request->time;
-            $inscription->start_date = $request->start_date;
-            $inscription->end_date = $request->start_date;
-            $inscription->unity_id = $user->unity_id;
+        $inscription = Inscription::find($id);
+        // dd($course);
+        $inscription->course_id = $request->course_id;
+        $inscription->location_id = $request->location_id;
+        $inscription->slot=$request->slot;
+        $inscription->user_id =$request->user_id;
+        $inscription->address =$request->address;
+        $inscription->time =$request->time;
+        $inscription->start_date = $fields['start_date'];
+        $inscription->end_date = $fields['start_date'];
+        $inscription->unity_id = $user->unity_id;
 
             $inscription->hours=$course->hours;
             $inscription->name=$course->name;
@@ -237,6 +237,12 @@ class InscriptionController extends Controller
 
     public function register(Inscription $inscription) {
         $user = Auth::user();
+
+        // recuperamos la relacion de particpantes incritos en la programacion
+        $Incription_users_id = DB::table('inscription_user')
+            ->where('inscription_id', '=', $inscription->id)
+            ->pluck('user_id')->toArray();
+
         $participants = User::select(
             'users.id',
             DB::raw('CONCAT(users.document," | ",users.name, " ",users.last_name," | ", companies.name, " | ", unities.name) AS full_name'))
@@ -245,6 +251,7 @@ class InscriptionController extends Controller
             ->join('unities', 'unities.id', '=', 'users.unity_id')
             ->where('users.state', 1)
             ->where('users.unity_id',$user->unity_id)
+            ->whereNotIn('users.id', $Incription_users_id)
             ->where('model_has_roles.role_id', 2)
             ->get();
 

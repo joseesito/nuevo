@@ -57,7 +57,7 @@
             <th>Empresa</th>
             <th>Unidad Minera</th>
             <th>estado</th>
-            <th width="280px">Acciones</th>
+            <th nowrap>Acciones</th>
         </tr>
         @foreach ($data as $key => $user)
         <body>
@@ -77,7 +77,7 @@
                         <span class="label bg-red">desactivado</span>
                     @endif
                 </td>
-                <td>
+                <td nowrap>
                     @can('participant-list')
                         <a class="btn btn-info" href="{{ route('participants.show',$user->id) }}">Mostrar</a>
                     @endcan
