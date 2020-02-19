@@ -22,18 +22,30 @@
 
     @if(Session::has('Mensaje'))
 
-        <div class="alert alert-success" role="alert">
+          <div class="alert alert-success" role="alert">
+
+          <strong font size=7 >Aviso: </strong> {{session('flash')}}
+          <button type="button" class="close" data-dismiss="alert alert-label">
+           <span aria-hidden="true">&times;</span>
+          </button>
+
+
+          {{ Session::get('Mensaje')}}
+          </div>
+
+        @endif
+
+        @if(Session::has('Mensaje2'))
+
+            <div class="alert alert-danger" role="alert">
 
             <strong font size=7 >Aviso: </strong> {{session('flash')}}
-            <button type="button" class="close" data-dismiss="alert alert-label">
-                <span aria-hidden="true">&times;</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
             </button>
-
-            {{ Session::get('Mensaje')}}
-        </div>
-
-    @endif
-
+            {{ Session::get('Mensaje2')}}
+            </div>
+          @endif
     <table class="table table-bordered">
         <tr>
             <th>Nro</th>

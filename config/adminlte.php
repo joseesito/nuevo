@@ -78,11 +78,7 @@ return [
             'url' => 'courses',
             'icon' => 'fa fa-list-alt"'
         ],
-        [
-            'text' => 'Localizaciones',
-            'url' => 'locations',
-            'icon' => 'fa fa-list-alt"'
-        ],
+      
         [
             'text' => 'Compañias',
             'url' => 'companies',

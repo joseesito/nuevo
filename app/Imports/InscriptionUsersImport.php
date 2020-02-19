@@ -44,7 +44,7 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
 
         // verificar si existe la empresa
         $company = Company::where('ruc', $row['ruc']);
-
+        
         if ($company->exists()) {
             $company_id = $company->first()->id;
         }
@@ -57,35 +57,47 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
             // remplazamos la variable $user_id por el valor
             $user_id = $participant->first()->id;
         } else {
-            // creamos el usuario y le asignamos el rol 2(participante) y actulizamos la variable $user_id
-            $user = User::create([
-                'company_id' => $company_id,
-                'unity_id' => $unity_id,
-                'document' => trim($row['dnidocumento']),
-                'type_document' => 1,
-                'last_name' => $row['apellidos'],
-                'name' => $row['nombres'],
-                'position' => $row['cargo'],
-                'area' => $row['area'],
-                'management' => $row['gerencia'],
-                'email' => $row['dnidocumento'].'ex@mail.com',
-                'user_created' => $user_created,
-            ]);
-
-            $user->assignRole('participante');
-            $user_id = $user->id;
-
+            if ($company->exists()){
+                // creamos el usuario y le asignamos el rol 2(participante) y actulizamos la variable $user_id
+                $user = User::create([
+                    'company_id' => $company_id,
+                    'unity_id' => $unity_id,
+                    'document' => trim($row['dnidocumento']),
+                    'type_document' => 1,
+                    'last_name' => $row['apellidos'],
+                    'name' => $row['nombres'],
+                    'position' => $row['cargo'],
+                    'area' => $row['area'],
+                    'management' => $row['gerencia'],
+                    'email' => $row['dnidocumento'].'ex@mail.com',
+                    'user_created' => $user_created,
+                ]);
+                $user->assignRole('participante');
+                $user_id = $user->id;
+            }
+            else {
+                $mensaje = 'La empresa con ruc ' .$row['ruc'].' y nombre'. $row['empresa'].' no existe';
+                return redirect()->back()->with('Mensaje2',$mensaje);              
+            }
         }
-
+        
+        
         if (strlen(trim($row['dnidocumento'])) < 8 || trim($row['dnidocumento']) == '' ) {
-            $mensaje = 'que el documento tenga por lo menos 8 digitos';
-            return $mensaje;
+           
+            return redirect()->back()->with('Mensaje2','El documento del usuario :  '. $row['nombres'].'  debe tener por lo menos 8 dijitos');
+            
         }
 
         // ------ a ver con el tiempo sobre la crecion del usuario y modificcion dle usuario
+        
         if ($company->exists()) {
+            if($rowIndex==4){
+                dd($company->exists());
+            }
+            
             InscriptionUser::updateOrCreate(
                 [
+                   
                     'user_id' => $user_id,
                     'inscription_id' => $inscription_id,
                 ],
@@ -98,9 +110,9 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
                     'user_modified' => $user_created,
                 ]
             );
-        } else {
+        }else {
             $mensaje = 'La empresa con ruc ' .$row['ruc'].' y nombre'. $row['empresa'].' no existe';
-            return $mensaje;
+            return redirect()->back()->with('Mensaje2',$mensaje);
         }
     }
 }

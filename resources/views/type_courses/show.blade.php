@@ -27,8 +27,12 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Estado:</strong>
-                {{ $type_course->state }}
+            <strong>Estado:</strong>
+                @if($type_course->state==1)
+                    <label class="label label-primary">Activo</label>
+                @else
+                    <label class="label label-warning">Inactivo</label>
+                @endif
             </div>
         </div>
     </div>
