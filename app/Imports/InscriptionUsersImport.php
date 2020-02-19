@@ -88,7 +88,8 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
         // ------ a ver con el tiempo sobre la crecion del usuario y modificcion dle usuario
 
         if ($company->exists()) {
-
+            
+            
             InscriptionUser::updateOrCreate(
                 [
                     'user_id' => $user_id,

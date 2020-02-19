@@ -20,22 +20,19 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('user-list-excel', 'UserController@exportExcel')->name('users.excel');
 ///participants','ParticipantController@index
-Route::get('/export','ParticipantController@export')->name('participants.export');
-Route::post('/import','ParticipantController@import')->name('participantes.import');
+
+
 
 Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('companies','CompanyController');
     Route::resource('unities','UnityController');
     Route::resource('roles','RoleController');
-    Route::resource('users','UserController');
-    Route::resource('participants','ParticipantController');
     Route::resource('products','ProductController');
     Route::resource('courses','CourseController');
     Route::resource('type_courses','TipoCourseController');
     Route::resource('courses','CourseController');
     Route::resource('locations','LocationController');
-    Route::resource('facilitadors','FacilitadorController');
 
     /**
      *
@@ -49,5 +46,18 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('inscriptions/register-grade/{inscription}', 'InscriptionController@grade')->name('inscriptions.grade');
     Route::get('inscriptions/export-list-excel/{inscription}', 'InscriptionController@exportExcel')->name('inscriptions.export');
     Route::post('inscriptions/import-list-excel/{inscription}', 'InscriptionController@importExcel')->name('inscriptions.import');
+
+    /**
+     *
+     * rutas de inscription
+     *
+    **/
+
+    
+    Route::get('participants/export-excel','ParticipantController@export')->name('participants.export');
+    Route::post('participants/import-excel','ParticipantController@import')->name('participants.import');
+    Route::resource('users','UserController');
+    Route::resource('participants','ParticipantController');
+    Route::resource('facilitadors','FacilitadorController');
 
 });
