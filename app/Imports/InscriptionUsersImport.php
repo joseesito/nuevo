@@ -12,8 +12,6 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class InscriptionUsersImport implements OnEachRow, WithHeadingRow
 {
-
-
     public function __construct(int $id)
     {
         $this->id = $id;
@@ -25,7 +23,6 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
 
     public function onRow(Row $row)
     {
-
         $rowIndex = $row->getIndex();
         // recuperamos toda la fila
         $row      = $row->toArray();
@@ -44,7 +41,7 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
 
         // verificar si existe la empresa
         $company = Company::where('ruc', $row['ruc']);
-        
+
         if ($company->exists()) {
             $company_id = $company->first()->id;
         }
@@ -77,27 +74,23 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
             }
             else {
                 $mensaje = 'La empresa con ruc ' .$row['ruc'].' y nombre'. $row['empresa'].' no existe';
-                return redirect()->back()->with('Mensaje2',$mensaje);              
+                return redirect()->back()->with('Mensaje2',$mensaje);
             }
         }
-        
-        
+
+
         if (strlen(trim($row['dnidocumento'])) < 8 || trim($row['dnidocumento']) == '' ) {
-           
+
             return redirect()->back()->with('Mensaje2','El documento del usuario :  '. $row['nombres'].'  debe tener por lo menos 8 dijitos');
-            
+
         }
 
         // ------ a ver con el tiempo sobre la crecion del usuario y modificcion dle usuario
-        
+
         if ($company->exists()) {
-            if($rowIndex==4){
-                dd($company->exists());
-            }
-            
+
             InscriptionUser::updateOrCreate(
                 [
-                   
                     'user_id' => $user_id,
                     'inscription_id' => $inscription_id,
                 ],

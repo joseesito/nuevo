@@ -30,7 +30,6 @@
             <span aria-hidden="true">&times;</span>
             </button>
 
-
         {{ Session::get('Mensaje')}}
             </div>
 
@@ -45,15 +44,9 @@
             <span aria-hidden="true">&times;</span>
             </button>
 
-
         {{ Session::get('Mensaje2')}}
             </div>
         @endif
-
-      
-
-
-    
 
 
     <table class="table table-bordered">
@@ -65,7 +58,7 @@
             <th>Hora</th>
             <th>Dirección</th>
             <th>Unidad</th>
-            <th width="280px">Acciones</th>
+            <th>Acciones</th>
         </tr>
 	    @foreach ($inscriptions as $inscription)
 	    <tr>
@@ -78,20 +71,19 @@
             <td>{{ $inscription->unity }}</td>
 	        <td>
                 <form action="{{ route('inscriptions.destroy',$inscription->id) }}" method="POST">
-                    <a class="btn btn-info btn-sm" href="{{ route('inscriptions.show',$inscription->id) }}">Mostrar</a>
                     @can('inscription-edit')
-                    <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.edit',$inscription->id) }}">Editar</a>
+                    <a class="btn btn-warning btn-sm" href="{{ route('inscriptions.edit',$inscription->id) }}"><i class="fa fa-pencil-square"></i></a>
                     @endcan
                     @csrf
                     @method('DELETE')
                     @can('inscription-delete')
-                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                     @endcan
                     @can('inscription-edit')
-                        <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.register',$inscription->id) }}">Registrar</a>
+                        <a class="btn btn-default btn-sm" href="{{ route('inscriptions.register',$inscription->id) }}"><i class="fa fa-registered"></i></a>
                     @endcan
                     @can('inscription-edit')
-                        <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.grade',$inscription->id) }}">Subir Notas</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.grade',$inscription->id) }}"><i class="fa fa-file"></i></a>
                     @endcan
                 </form>
 	        </td>
@@ -99,5 +91,4 @@
 	    @endforeach
     </table>
 
-
-@stop
+@endsection

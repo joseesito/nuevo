@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Inscription extends Model
@@ -15,20 +16,24 @@ class Inscription extends Model
     ];
 
     protected $dates = [
-      'start_Date', 'end_Date',
+      'start_date', 'end_date',
     ];
+
     public function location()
     {
         return $this->belongsTo('App/Location');
     }
+
     public function unity()
     {
         return $this->belongsTo('App/Unity');
     }
+
     public function user()
     {
         return $this->belongsTo('App/User');
     }
+
     public function company()
     {
         return $this->belongsTo('App/Company');
@@ -37,5 +42,14 @@ class Inscription extends Model
     public function participants()
     {
         return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
+    public function getAddressAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    public function getStartDateAttribute($value) {
+        return Carbon::parse($value)->format('d/m/Y');
     }
 }
