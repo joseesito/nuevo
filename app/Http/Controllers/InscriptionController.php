@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\InscriptionUser;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -29,18 +30,18 @@ class InscriptionController extends Controller
         // recuperamos el usuario facilitador
         $user = Auth::user();
         // recuperamos toda las programaciones de la "unidad minera" que pertenece el usuario facilitador
-        $inscriptions = DB::table('inscriptions as I')
-        ->select(
-            'I.id','I.name',
+        $inscriptions = Inscription::
+        select(
+            'inscriptions.id','inscriptions.name',
             'L.name as location','U.name as unity',
-            'I.address',
-            'I.time','I.hours',
-            'I.start_date')
-        ->join('unities as U','U.id','=','I.unity_id')
-        ->join('locations as L','L.id','=','I.location_id')
-        ->where('I.state','=',1)
-        ->where('I.unity_id','=', $user->unity_id)
-        ->orderBy('I.start_Date','asc')
+            'inscriptions.address',
+            'inscriptions.time','inscriptions.hours',
+            'inscriptions.start_date')
+        ->join('unities as U','U.id','=','inscriptions.unity_id')
+        ->join('locations as L','L.id','=','inscriptions.location_id')
+        ->where('inscriptions.state','=',1)
+        ->where('inscriptions.unity_id','=', $user->unity_id)
+        ->orderBy('inscriptions.start_Date','asc')
         ->get();
 
         return view('inscription.index',compact('inscriptions'));
@@ -71,23 +72,26 @@ class InscriptionController extends Controller
     {
         $user = Auth::user();
 
-        $this->validate($request ,[
-            'start_date' => 'required',
+        $fields = $this->validate($request ,[
+            'start_date' => 'required|date_format:d/m/Y',
             'address' => 'required',
-            'slot' => 'required|min:1',
-
+            'slot' => 'required|min:0',
         ],
-            [
-                'start_date.required' => 'El campo fecha es requerido',
-                'address.required' => 'Dirección es requerida',
-                'slot.required' => 'Vacante requerida',
-                'slot.min' => 'la vacante debe de ser mayor a 1'
-            ]);
+        [
+            'start_date.required' => 'El campo fecha es requerido',
+            'address.required' => 'Dirección es requerida',
+            'slot.required' => 'Vacante requerida',
+            'slot.min' => 'la vacante debe de ser mayor a 1'
+        ]);
+
+        $start_date = $request->start_date;
+        $start_date = Carbon::createFromFormat('d/m/Y', $start_date);
+        $fields['start_date'] = $start_date;
+
         $course = DB::table('courses')
         ->where('id',$request->course_id)
         ->first();
 
-        // dd($request->all());
         $inscription = new Inscription;
         $inscription->course_id = $request->course_id;
         $inscription->location_id = $request->location_id;
@@ -97,9 +101,8 @@ class InscriptionController extends Controller
         $inscription->user_id =$request->user_id;
         $inscription->address =$request->address;
         $inscription->time =$request->time;
-        $inscription->start_date = $request->start_date;
-        $inscription->end_date = $request->start_date;
-
+        $inscription->start_date = $fields['start_date'];
+        $inscription->end_date = $fields['start_date'];
 
         $inscription->hours=$course->hours;
         $inscription->name=$course->name;
@@ -113,8 +116,7 @@ class InscriptionController extends Controller
 
         return redirect()
             ->route('inscriptions.index')
-            ->with('Mensaje','El curso: '. $inscription->name.
-            ' en la hora: '.$inscription->time.' fue guardado.');
+            ->with('Mensaje','El curso: '. $inscription->name. ' en la hora: ' .$inscription->time. ' ' .$inscription->time.' fue registrado correctamente.');
     }
 
     /**
@@ -159,13 +161,10 @@ class InscriptionController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
-        $this->validate($request ,[
-            'start_date' => 'required',
+        $fields = $this->validate($request ,[
+            'start_date' => 'required|date_format:d/m/Y',
             'address' => 'required',
-            'slot' => 'required|min:1',
-
+            'slot' => 'required|min:0',
         ],
             [
                 'start_date.required' => 'El campo fecha es requerido',
@@ -173,6 +172,11 @@ class InscriptionController extends Controller
                 'slot.required' => 'Vacante requerida',
                 'slot.min' => 'la vacante debe de ser mayor a 1'
             ]);
+
+        $start_date = $request->start_date;
+        $start_date = Carbon::createFromFormat('d/m/Y', $start_date);
+        $fields['start_date'] = $start_date;
+
         $user = Auth::user();
         $course =DB::table('courses')
             ->where('id',$request->course_id)
@@ -188,7 +192,6 @@ class InscriptionController extends Controller
             $inscription->start_date = $request->start_date;
             $inscription->end_date = $request->start_date;
             $inscription->unity_id = $user->unity_id;
-
 
             $inscription->hours=$course->hours;
             $inscription->name=$course->name;
@@ -301,7 +304,7 @@ class InscriptionController extends Controller
     public function exportExcel(Inscription $inscription) {
         
         // nombre del archivo a descargar
-        $file = $inscription->id.' '.$inscription->name.' '.$inscription->start_date.'.xlsx';
+        $file = $inscription->id.' '.$inscription->name.'.xlsx';
         return Excel::download(new InscriptionUsersExport($inscription->id), $file);
     }
 

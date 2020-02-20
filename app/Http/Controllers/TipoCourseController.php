@@ -25,7 +25,6 @@ class TipoCourseController extends Controller
         $type_course = DB::table('type_courses')
         ->where('state','=',1)
         ->get();
-
         return view('type_courses.index',compact('type_course'));
     }
 
@@ -40,7 +39,6 @@ class TipoCourseController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-
         ]);
 
         TypeCourse::create($request->all());

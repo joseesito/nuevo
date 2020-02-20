@@ -26,7 +26,7 @@ class InscriptionUsersExport implements FromQuery, WithHeadings, ShouldAutoSize,
 
     public function query()
     {
-        return InscriptionUser::query()
+        $list = InscriptionUser::query()
             ->select('users.document',
                 'users.last_name', 'users.name',
                 'users.position',
@@ -39,6 +39,7 @@ class InscriptionUsersExport implements FromQuery, WithHeadings, ShouldAutoSize,
             ->join('companies', 'companies.id', '=', 'inscription_user.company_id')
             ->where('inscription_user.inscription_id', $this->id)
             ->whereIn('inscription_user.state', [1,2]);
+        return $list;
     }
 
     /**
