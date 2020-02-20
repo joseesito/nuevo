@@ -54,7 +54,7 @@
             <th>Documento</th>
             <th>Estado</th>
             <th>Email</th>
-            <th width="280px">Actionn</th>
+            <th nowrap>Actionn</th>
         </tr>
         @foreach ($data as $key => $user)
             <tr>
@@ -65,7 +65,7 @@
                 @if($user->state==1)
                 <td>
                 <label class="label label-primary">Activo</label>
-                </td>    
+                </td>
                 @else
                 <td>
                 <label class="label label-warning">Inactivo</label>
@@ -79,7 +79,7 @@
                         @endforeach
                     @endif
                 </td>
-                <td>
+                <td nowrap>
                     @can('facilitador-list')
                         <a class="btn btn-info" href="{{ route('facilitadors.show',$user->id) }}">Mostrar</a>
                     @endcan

@@ -69,7 +69,7 @@
             <td>{{ $inscription->time }}</td>
             <td>{{ $inscription->address }}</td>
             <td>{{ $inscription->unity }}</td>
-	        <td>
+	        <td nowrap>
                 <form action="{{ route('inscriptions.destroy',$inscription->id) }}" method="POST">
                     @can('inscription-edit')
                     <a class="btn btn-warning btn-sm" href="{{ route('inscriptions.edit',$inscription->id) }}"><i class="fa fa-pencil-square"></i></a>

@@ -9,11 +9,11 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Tippo cursos</h2>
+                <h2>Tipos de curso</h2>
             </div>
             <div class="pull-right">
                 @can('course-create')
-                <a class="btn btn-success" href="{{ route('type_courses.create') }}"> Crear nuevo Curso</a>
+                <a class="btn btn-success" href="{{ route('type_courses.create') }}"> Crear nuevo Tipo de Curso</a>
                 @endcan
             </div>
         </div>
@@ -34,7 +34,7 @@
         </tr>
 	    @foreach ($type_course as $type_cours)
 	    <tr>
-	        
+
 	        <td>{{ $type_cours->name }}</td>
 	        <td>
                 <form action="{{ route('type_courses.destroy',$type_cours->id) }}" method="POST">
@@ -56,6 +56,6 @@
     </table>
 
 
-    
+
 
 @stop

@@ -13,9 +13,8 @@
             </div>
             <div class="pull-right">
                 @can('participant-create')
-                    <a class="btn btn-default" href="{{ route('participants.create') }}"> Formato</a>
+                    <a class="btn btn-default" href="#"> Formato</a>
                     <a class="btn btn-default" href="{{ route('participants.export')}}"> Exportar Participante</a>
-
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants">Asignación masiva</button>
                     <a class="btn btn-success" href="{{ route('participants.create') }}"> Crear nuevo participante</a>
                 @endcan
@@ -59,13 +58,14 @@
             <th>Empresa</th>
             <th>Unidad Minera</th>
             <th>estado</th>
-            <th width="280px">Acciones</th>
+            <th nowrap>Acciones</th>
         </tr>
         @foreach ($data as $key => $user)
         <body>
             <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $user->document }}</td>
+                <td>{{ $user->type_document }}</td>
                 <td>{{ $user->name }} {{ $user->last_name }}</td>
                 <td>{{ $user->position }}</td>
                 <td>{{ $user->area }}</td>
@@ -79,7 +79,7 @@
                         <span class="label bg-red">desactivado</span>
                     @endif
                 </td>
-                <td>
+                <td nowrap>
                     @can('participant-list')
                         <a class="btn btn-info" href="{{ route('participants.show',$user->id) }}">Mostrar</a>
                     @endcan

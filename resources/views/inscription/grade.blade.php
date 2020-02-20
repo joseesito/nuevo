@@ -52,6 +52,7 @@
             <th>Dni</th>
             <th>Nombre Completos</th>
             <th>Empresa</th>
+            <th>Unidad Minera</th>
             <th>estado</th>
             <th>nota</th>
             <th>Acciones</th>
@@ -62,18 +63,23 @@
                 <td>{{ $participant->document }}</td>
                 <td>{{ $participant->full_name }}</td>
                 <td>{{ $participant->company }}</td>
+                <td>{{ $participant->unity }}</td>
                 <td>
                     @if($participant->state == 1)
-                        <span class="label bg-green">activo</span>
-                    @else
-                        <span class="label bg-red">desactivado</span>
+                        <span class="label bg-green">Normal</span>
+                    @endif
+                    @if($participant->state == 2)
+                        <span class="label bg-green">Reprogramado</span>
+                    @endif
+                    @if($participant->state == 3)
+                        <span class="label bg-green">Anulado</span>
                     @endif
                 </td>
                 <td>{{ $participant->grade }}</td>
                 <td>
-                {!! Form::open(['method' => 'DELETE','route' => ['participants.destroy', $participant->id],'style'=>'display:inline']) !!}
+                {!! Form::open(['method' => 'DELETE']) !!}
                 @can('participant-delete')
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                    {!! Form::submit('Delete', ['class' => 'btn btn-danger disabled'] , 'disabled') !!}
                     @endcan
                 {!! Form::close() !!}
                 </td>

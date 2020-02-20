@@ -53,4 +53,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Inscription::class)->withTimestamps();
     }
+
+    public function getTypeDocumentAttribute($value) {
+        $type = "No tiene";
+        if ($value == 1) {
+            $type = "DNI";
+        }
+        if ($value == 2) {
+            $type = "PASAPORTE";
+        }
+        return $type;
+    }
 }
