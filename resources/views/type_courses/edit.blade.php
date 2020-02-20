@@ -30,7 +30,7 @@
     @endif
 
 
-    <form action="{{ route('type_courses.update',$type_course->id) }}" method="POST">
+    <form action="{{ route('type_courses.update',$type_course->id) }}" id="form_Inscription" method="POST">
     	@csrf
         @method('PUT')
 
@@ -43,7 +43,7 @@
 		        </div>
 		    </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-		      <button type="submit" class="btn btn-primary">Editar</button>
+		      <button type="submit" class="btn btn-primary btn_submit_register">Editar</button>
 		    </div>
 		</div>
 
@@ -51,3 +51,12 @@
     </form>
 
 @stop
+@section('js')
+<script>
+$('#form_Inscription').submit(function()
+{
+    $('.btn_submit_register').prop('disabled',true);
+    $('.btn_submit_register').html('<p><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i><span class="sr-only"></span> Actualizando...</p>');
+});
+</script>
+@endsection

@@ -73,7 +73,7 @@
             <br>
             <br>
             <div style="width: 450px; margin: 0 auto;">
-            <button id= btnagregar type="submit" class="btn btn-primary">Guardar</button>
+            <button id= btnagregar type="submit" class="btn btn-primary btn_submit_register">Guardar</button>
             </div>
 
 		</div>

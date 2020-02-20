@@ -30,6 +30,6 @@
 
 <div class="row">
     <div class="text-center">
-        <button type="submit" class="btn btn-primary">{{ $btnText }}</button>
+        <button type="submit" class="btn btn-primary btn_submit_register">{{ $btnText }}</button>
     </div>
 </div>

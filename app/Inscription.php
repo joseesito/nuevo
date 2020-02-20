@@ -14,7 +14,7 @@ class Inscription extends Model
     protected $hidden = [
         'created_at','updated_at'
     ];
-
+    
     protected $dates = [
       'start_date', 'end_date',
     ];

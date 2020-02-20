@@ -30,7 +30,7 @@
 @endif
 
 
-{!! Form::model($user, ['method' => 'PATCH','route' => ['participants.update', $user->id]]) !!}
+{!! Form::model($user, ['method' => 'PATCH','id'=>'form_Inscription','route' => ['participants.update', $user->id]] ) !!}
 <div class="row">
     <div class="col-xs-12 col-sm-3">
         <div class="form-group">
@@ -87,9 +87,19 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <button type="submit" class="btn btn-primary btn_submit_register">Actualizar</button>
     </div>
 </div>
 
+
 {!! Form::close() !!}
 @stop
+@section('js')
+<script>
+$('#form_Inscription').submit(function()
+{
+    $('.btn_submit_register').prop('disabled',true);
+    $('.btn_submit_register').html('<p><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i><span class="sr-only"></span> Actualizando...</p>');
+});
+</script>
+@endsection

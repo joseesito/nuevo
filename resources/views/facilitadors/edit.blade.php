@@ -30,7 +30,7 @@
 @endif
 
 
-{!! Form::model($user, ['method' => 'PATCH','route' => ['facilitadors.update', $user->id]]) !!}
+{!! Form::model($user, ['method' => 'PATCH','id'=>'form_Inscription','route' => ['facilitadors.update', $user->id]]) !!}
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
@@ -83,8 +83,17 @@
     </div>
     
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-primary">Agregar</button>
+        <button type="submit" class="btn btn-primary btn_submit_register">Agregar</button>
     </div>
 </div>
 {!! Form::close() !!}
 @stop
+@section('js')
+<script>
+$('#form_Inscription').submit(function()
+{
+    $('.btn_submit_register').prop('disabled',true);
+    $('.btn_submit_register').html('<p><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i><span class="sr-only"></span> Actualizando...</p>');
+});
+</script>
+@endsection
