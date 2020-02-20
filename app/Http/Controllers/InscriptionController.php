@@ -298,9 +298,10 @@ class InscriptionController extends Controller
             ->select('inscription_user.*',
                 'users.document',
                 DB::raw('CONCAT(users.last_name, " ", users.name) as full_name'),
-                'companies.name as company')
+                'companies.name as company', 'unities.name as unity')
             ->join('users', 'users.id', '=', 'inscription_user.user_id')
             ->join('companies', 'companies.id', '=', 'inscription_user.company_id')
+            ->join('unities', 'unities.id', '=', 'users.unity_id')
             ->where('inscription_user.inscription_id', $inscription->id)
             ->whereIn('inscription_user.state', [1,2])
         ->get();
@@ -309,7 +310,7 @@ class InscriptionController extends Controller
     }
 
     public function exportExcel(Inscription $inscription) {
-        
+
         // nombre del archivo a descargar
         $file = $inscription->id.' '.$inscription->name.'.xlsx';
         return Excel::download(new InscriptionUsersExport($inscription->id), $file);

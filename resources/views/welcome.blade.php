@@ -12,10 +12,10 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                background-color: #96002D;
+                color: #FFF;
                 font-family: 'Nunito', sans-serif;
-                font-weight: 200;
+                font-weight: 600;
                 height: 100vh;
                 margin: 0;
             }
@@ -49,7 +49,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #fff;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;

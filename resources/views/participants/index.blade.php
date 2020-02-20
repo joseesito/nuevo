@@ -13,9 +13,8 @@
             </div>
             <div class="pull-right">
                 @can('participant-create')
-                    <a class="btn btn-default" href="{{ route('participants.create') }}"> Formato</a>
+                    <a class="btn btn-default" href="#"> Formato</a>
                     <a class="btn btn-default" href="{{ route('participants.export')}}"> Exportar Participante</a>
-
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants">Asignación masiva</button>
                     <a class="btn btn-success" href="{{ route('participants.create') }}"> Crear nuevo participante</a>
                 @endcan
