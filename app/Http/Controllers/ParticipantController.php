@@ -37,7 +37,7 @@ class ParticipantController extends Controller
             ->join('companies', 'companies.id', '=', 'users.company_id')
             ->join('unities', 'unities.id', '=', 'users.unity_id')
             ->where('model_has_roles.role_id', 2)
-            ->orderBy('id','DESC')->paginate(20);
+            ->orderBy('id','DESC')->get();
 
         return view('participants.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);

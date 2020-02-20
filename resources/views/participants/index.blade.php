@@ -47,25 +47,28 @@
         </div>
     @endif
 
-    <table class="table table-bordered">
-        <tr>
-            <th>Nro</th>
-            <th>Dni</th>
-            <th>Nombre Completos</th>
-            <th>Cargo</th>
-            <th>Area</th>
-            <th>Gerencia</th>
-            <th>Empresa</th>
-            <th>Unidad Minera</th>
-            <th>estado</th>
-            <th nowrap>Acciones</th>
-        </tr>
+    <table class="table table-bordered" id="datatable">
+        <thead>
+            <tr>
+                <th>Nro</th>
+                <th>Tipo documento</th>
+                <th>Dni</th>
+                <th>Nombre Completos</th>
+                <th>Cargo</th>
+                <th>Area</th>
+                <th>Gerencia</th>
+                <th>Empresa</th>
+                <th>Unidad Minera</th>
+                <th>estado</th>
+                <th nowrap>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
         @foreach ($data as $key => $user)
-        <body>
             <tr>
                 <td>{{ ++$i }}</td>
-                <td>{{ $user->document }}</td>
                 <td>{{ $user->type_document }}</td>
+                <td>{{ $user->document }}</td>
                 <td>{{ $user->name }} {{ $user->last_name }}</td>
                 <td>{{ $user->position }}</td>
                 <td>{{ $user->area }}</td>
@@ -93,8 +96,8 @@
                     {!! Form::close() !!}
                 </td>
             </tr>
-        </body>
-        @endforeach
+            @endforeach
+        </tbody>
     </table>
 
     <div id="modalParticipants" class="modal fade" tabindex="-1" role="dialog">
@@ -123,5 +126,30 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-{!! $data->render() !!}
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').DataTable({
+                "stateSave": true,
+                "processing": true,
+                "language" : {
+                    "info": "_TOTAL_ registros",
+                    "search": "Buscar",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior",
+                    },
+                    "lengthMenu": 'Mostrar <select>' +
+                                  '<option value="10">10</option>' +
+                                  '<option value="25">25</option>' +
+                                  '<option value="50">50</option>' +
+                                  '<option value="-1">Todos</option>' +
+                                  '</select> registros',
+
+                }
+            });
+        });
+    </script>
 @endsection
