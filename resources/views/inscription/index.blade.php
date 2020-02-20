@@ -117,7 +117,6 @@
                         '<option value="50">50</option>' +
                         '<option value="-1">Todos</option>' +
                         '</select> registros',
-
                 }
             });
         });
