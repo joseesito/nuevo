@@ -11,8 +11,7 @@
 
         <!-- Styles -->
         <style>
-            html, body {
-                background-color: #96002D;
+            html {
                 color: #FFF;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 600;
@@ -41,7 +40,6 @@
             }
 
             .content {
-                text-align: center;
             }
 
             .title {
@@ -61,6 +59,18 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            body {
+                background: url('img/banner/banner1.png') no-repeat center center scroll;
+                height: 100vh;
+                min-height: 350px;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                margin: 0;
+            }
+
         </style>
     </head>
     <body>
@@ -80,9 +90,7 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Southern
-                </div>
+                <div class="banner"></div>
             </div>
         </div>
     </body>
