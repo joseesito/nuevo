@@ -131,6 +131,7 @@
 
 @section('adminlte_js')
 
+
     <script src="{{ asset('js/moment.js') }}"></script>
     <script src="{{ asset('js/moment-with-locales.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>

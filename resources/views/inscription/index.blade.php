@@ -49,46 +49,77 @@
         @endif
 
 
-    <table class="table table-bordered">
-        <tr>
-            <th>id</th>
-            <th>lugar</th>
-            <th>Curso</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Dirección</th>
-            <th>Unidad</th>
-            <th>Acciones</th>
-        </tr>
-	    @foreach ($inscriptions as $inscription)
-	    <tr>
-            <td>{{ $inscription->id }}</td>
-            <td>{{ $inscription->location }}</td>
-	        <td>{{ $inscription->name }}</td>
-            <td>{{ $inscription->start_date }}</td>
-            <td>{{ $inscription->time }}</td>
-            <td>{{ $inscription->address }}</td>
-            <td>{{ $inscription->unity }}</td>
-	        <td nowrap>
-                <form action="{{ route('inscriptions.destroy',$inscription->id) }}" method="POST">
-                    @can('inscription-edit')
-                    <a class="btn btn-warning btn-sm" href="{{ route('inscriptions.edit',$inscription->id) }}"><i class="fa fa-pencil-square"></i></a>
-                    @endcan
-                    @csrf
-                    @method('DELETE')
-                    @can('inscription-delete')
-                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                    @endcan
-                    @can('inscription-edit')
-                        <a class="btn btn-default btn-sm" href="{{ route('inscriptions.register',$inscription->id) }}"><i class="fa fa-registered"></i></a>
-                    @endcan
-                    @can('inscription-edit')
-                        <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.grade',$inscription->id) }}"><i class="fa fa-file"></i></a>
-                    @endcan
-                </form>
-	        </td>
-	    </tr>
-	    @endforeach
+    <table class="table table-bordered" id="datatable">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>lugar</th>
+                <th>Curso</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Dirección</th>
+                <th>Unidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach ($inscriptions as $inscription)
+            <tr>
+                <td>{{ $inscription->id }}</td>
+                <td>{{ $inscription->location }}</td>
+                <td>{{ $inscription->name }}</td>
+                <td>{{ $inscription->start_date }}</td>
+                <td>{{ $inscription->time }}</td>
+                <td>{{ $inscription->address }}</td>
+                <td>{{ $inscription->unity }}</td>
+                <td nowrap>
+                    <form action="{{ route('inscriptions.destroy',$inscription->id) }}" method="POST">
+                        @can('inscription-edit')
+                        <a class="btn btn-warning btn-sm" href="{{ route('inscriptions.edit',$inscription->id) }}"><i class="fa fa-pencil-square"></i></a>
+                        @endcan
+                        @csrf
+                        @method('DELETE')
+                        @can('inscription-delete')
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                        @endcan
+                        @can('inscription-edit')
+                            <a class="btn btn-default btn-sm" href="{{ route('inscriptions.register',$inscription->id) }}"><i class="fa fa-registered"></i></a>
+                        @endcan
+                        @can('inscription-edit')
+                            <a class="btn btn-primary btn-sm" href="{{ route('inscriptions.grade',$inscription->id) }}"><i class="fa fa-file"></i></a>
+                        @endcan
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
     </table>
 
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatable').DataTable({
+                "stateSave": true,
+                "processing": true,
+                "language" : {
+                    "info": "_TOTAL_ registros",
+                    "search": "Buscar",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior",
+                    },
+                    "lengthMenu": 'Mostrar <select>' +
+                        '<option value="10">10</option>' +
+                        '<option value="25">25</option>' +
+                        '<option value="50">50</option>' +
+                        '<option value="-1">Todos</option>' +
+                        '</select> registros',
+
+                }
+            });
+        });
+    </script>
 @endsection
