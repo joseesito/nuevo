@@ -49,7 +49,7 @@
                     {!! Form::label('address', 'Dirección') !!}
                     {!! Form::text('address', null, ['class' => 'form-control','placeholder' => 'Ingresa dirección','required' => 'required']) !!}
                 </div>
-                <button id= btnagregar type="submit" class="btn btn-primary">Guardar</button>
+                <button id= btnagregar type="submit" class="btn btn-primary btn_submit_register">Guardar</button>
             </div>
 
         </div>

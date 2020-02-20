@@ -42,6 +42,7 @@
                 format: 'HH:mm A'
             });
             $('.selection-input').select2();
+            
         });
 
     </script>
