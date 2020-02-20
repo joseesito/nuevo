@@ -66,6 +66,7 @@
             <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $user->document }}</td>
+                <td>{{ $user->type_document }}</td>
                 <td>{{ $user->name }} {{ $user->last_name }}</td>
                 <td>{{ $user->position }}</td>
                 <td>{{ $user->area }}</td>

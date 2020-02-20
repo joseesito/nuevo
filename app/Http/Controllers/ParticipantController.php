@@ -29,8 +29,8 @@ class ParticipantController extends Controller
 
     public function index(Request $request)
     {
-        
-        $data = User::select('users.id', 'users.document', 'users.name', 'users.last_name', 'users.position', 'users.area',
+
+        $data = User::select('users.id', 'users.type_document', 'users.document', 'users.name', 'users.last_name', 'users.position', 'users.area',
             'users.state', 'users.management',
             'companies.name as company', 'unities.name as unity',  'users.email')
             ->join('model_has_roles','users.id','=','model_has_roles.model_id')
@@ -38,22 +38,22 @@ class ParticipantController extends Controller
             ->join('unities', 'unities.id', '=', 'users.unity_id')
             ->where('model_has_roles.role_id', 2)
             ->orderBy('id','DESC')->paginate(20);
-            
+
         return view('participants.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
-    public function export() 
-    {    
+    public function export()
+    {
         return Excel::download(new InscriptionExport,'inscription.xlsx');
     }
-    
-    public function import(Request $request) 
-    {   
+
+    public function import(Request $request)
+    {
         $file = $request->file('file_up');
         Excel::import(new InscriptionImport, $file);
-        return back()->with('success', 'Se actualizaron las datos del participante');  
+        return back()->with('success', 'Se actualizaron las datos del participante');
     }
-   
+
     public function create()
     {
         $company =Company::pluck('name','id');

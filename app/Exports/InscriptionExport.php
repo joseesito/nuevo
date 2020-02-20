@@ -69,10 +69,9 @@ class InscriptionExport implements FromQuery, WithHeadings, ShouldAutoSize, With
     {
         return [
             'A' => NumberFormat::FORMAT_TEXT,
+            'B' => NumberFormat::FORMAT_TEXT,
         ];
     }
-    
-
 
     /**
      * @inheritDoc
@@ -91,7 +90,7 @@ class InscriptionExport implements FromQuery, WithHeadings, ShouldAutoSize, With
         return [
             AfterSheet::class => function (AfterSheet $event) use($styleArray) {
                 $event->sheet->getStyle('A1:I1')->applyFromArray($styleArray);
-                
+
             },
         ];
     }
