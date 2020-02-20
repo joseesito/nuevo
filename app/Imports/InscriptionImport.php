@@ -3,26 +3,16 @@
 namespace App\Imports;
 
 use App\Company;
-use App\InscriptionUser;
+use App\Unity;
+use App\Inscription;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class InscriptionUsersImport implements OnEachRow, WithHeadingRow
+class InscriptionImport implements OnEachRow, WithHeadingRow
 {
-
-
-    public function __construct(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @inheritDoc
-     */
-
     public function onRow(Row $row)
     {
 
@@ -33,9 +23,10 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
         // recuperamos al facilitador
         $fac = Auth::user();
 
+
         // inicializamos la variables inscription_user
         $user_id = null;
-        $inscription_id = $this->id;
+        
 
         // inicializamos la variables creacion de usuarios
         $company_id = null;
@@ -43,23 +34,45 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
         $user_created = $fac->id;
 
         // verificar si existe la empresa
+       
         $company = Company::where('ruc', $row['ruc']);
         
+        $unities = Unity::where('name',$row['unidad_minera']); 
+            
         if ($company->exists()) {
             $company_id = $company->first()->id;
         }
-
+       
         // verificamos si exsite el participante
         $participant = User::join('model_has_roles','users.id','=','model_has_roles.model_id')
             ->where('users.document', $row['dnidocumento'])
             ->where('model_has_roles.role_id', 2);
+
+        if (strlen(trim($row['dnidocumento'])) < 8 || trim($row['dnidocumento']) == '' ) {
+           
+                return redirect()->back()->with('Mensaje2','El documento del usuario :  '. $row['nombres'].'  debe tener por lo menos 8 dijitos');
+                
+                
+        }
+            
         if ($participant->exists()) {
             // remplazamos la variable $user_id por el valor
             $user_id = $participant->first()->id;
-        } else {
-            if ($company->exists()){
+        }
+        
+        
+           
+        if ($company->exists() && $unities->exists()){
                 // creamos el usuario y le asignamos el rol 2(participante) y actulizamos la variable $user_id
-                $user = User::create([
+                
+                $user = User::updateOrCreate(
+                    
+                    [
+                        'id' => $user_id,
+                    ],
+                    
+                [
+                    
                     'company_id' => $company_id,
                     'unity_id' => $unity_id,
                     'document' => trim($row['dnidocumento']),
@@ -72,45 +85,62 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
                     'email' => $row['dnidocumento'].'ex@mail.com',
                     'user_created' => $user_created,
                 ]);
+                
                 $user->assignRole('participante');
                 $user_id = $user->id;
+                
             }
             else {
-                $mensaje = 'La empresa con ruc ' .$row['ruc'].' y nombre'. $row['empresa'].' no existe';
+                if(! $unities->exists()){
+                    $mensaje = 'La Unidad  con nombre ' .$row['unidad_minera'].' no existe';
+                }elseif(! $company->exists()){
+                    $mensaje = 'La empresa  con Ruc ' .$row['ruc'].' y nombre'. $row['empresa'].' no existe';
+                }else{
+                    $mensaje = 'La empresa  con Ruc ' .$row['ruc'].' y nombre'. $row['empresa'].
+                    ' no existe'.'La Unidad  con nombre ' .$row['unidad_minera'].' no existe';
+                }
+               
                 return redirect()->back()->with('Mensaje2',$mensaje);              
             }
-        }
         
         
-        if (strlen(trim($row['dnidocumento'])) < 8 || trim($row['dnidocumento']) == '' ) {
+        
+     /*   if (trim($row['tipo_documento'])!=='DNI' || trim($row['tipo_documento']) !== 'PASAPORTE' ) {
            
-            return redirect()->back()->with('Mensaje2','El documento del usuario :  '. $row['nombres'].'  debe tener por lo menos 8 dijitos');
+            return redirect()->back()->with('Mensaje2','El Tipo de documento del usuario :  '. $row['nombres'].'  debe tener por ser DNI o PASAPORTE');
             
         }
-
-        // ------ a ver con el tiempo sobre la crecion del usuario y modificcion dle usuario
-        
-        if ($company->exists()) {
+        */    
+// ------ a ver con el tiempo sobre la crecion del usuario y modificcion dle usuario
+      
+    
+       if($company->exists() && $unities->exists()) {
             
-            
-            InscriptionUser::updateOrCreate(
+       User::updateOrCreate(
                 [
                    
-                    'user_id' => $user_id,
-                    'inscription_id' => $inscription_id,
+                    'id' => $user_id,
                 ],
-                [
-                    'grade_min' => 14,
-                    'grade' => $row['nota'],
-                    'type' => 0,
+                [  
+                    'type_document' => 1,
                     'company_id' => $company_id,
                     'unity_id' => $unity_id,
                     'user_modified' => $user_created,
                 ]
             );
         }else {
-            $mensaje = 'La empresa con ruc ' .$row['ruc'].' y nombre'. $row['empresa'].' no existe';
+            if(! $unities->exists()){
+                $mensaje = 'La Unidad  con nombre ' .$row['unidad_minera'].' no existe';
+            }elseif(! $company->exists()){
+                $mensaje = 'La empresa  con Ruc ' .$row['ruc'].' y nombre'. $row['empresa'].' no existe';
+            }else{
+                $mensaje = 'La empresa  con Ruc ' .$row['ruc'].' y nombre'. $row['empresa'].
+                ' no existe'.'La Unidad  con nombre ' .$row['unidad_minera'].' no existe';
+            }
+           
             return redirect()->back()->with('Mensaje2',$mensaje);
         }
+    
     }
+    
 }

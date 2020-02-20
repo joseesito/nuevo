@@ -44,54 +44,16 @@ class ParticipantController extends Controller
     }
     public function export() 
     {    
-        return Excel::download(new InscriptionExport, 'inscription.csv');
+        return Excel::download(new InscriptionExport,'inscription.xlsx');
     }
+    
     public function import(Request $request) 
-    {
-        
-        $file = public_path('inscription.csv');
-        $lines=file($file);
-        $utf8_lines = array_map('utf8_encode',$lines);
-        $array = array_map('str_getcsv',$utf8_lines);
-
-        for($i=1; $i<sizeof($array); ++$i) {
-            $participant= new User();
-            $participant->document=$array[$i][0];
-            $participant->last_name=$array[$i][1];
-            $participant->name=$array[$i][2];
-            $participant->company_id=$this->getcompany_id($array[$i][3]);
-            $participant->position=$array[$i][4];
-            $participant->unity_id=$this->getunidad_id($array[$i][5]);
-            $participant->area=$array[$i][6];
-            $participant->management=$array[$i][7];
-            $participant->save();
-
-            
-        }
-
-        
-    }
-    public function getcompany_id($namecompany){
-        
-        $companies=Company::where('name',$namecompany)->first();
-        if($companies){     
-            return $companies->id;
-            dd($companies->id);    
-        }else{
-            return redirect()->back()->with('Mensaje2','La compañia :'. $namecompany.'no existe. Ingrese una compañia Valida') ;
-        }
-    }
-    public function getunidad_id($unityname){
-        
-        $unities=Unity::where('name',$unityname)->first();
-        if($unities){
-            return $unities->id;
-        }else{
-            return redirect()->back()->with('Mensaje2','La Unidad :'. $unityname.'no existe. Ingrese una Unidad Valida') ;
-        }
+    {   
+        $file = $request->file('file_up');
+        Excel::import(new InscriptionImport, $file);
+        return back()->with('success', 'Se actualizaron las datos del participante');  
     }
    
-
     public function create()
     {
         $company =Company::pluck('name','id');

@@ -299,12 +299,14 @@ class InscriptionController extends Controller
     }
 
     public function exportExcel(Inscription $inscription) {
+        
         // nombre del archivo a descargar
         $file = $inscription->id.' '.$inscription->name.' '.$inscription->start_date.'.xlsx';
         return Excel::download(new InscriptionUsersExport($inscription->id), $file);
     }
 
     public function importExcel(Request $request, Inscription $inscription) {
+
         $file = $request->file('file_up');
         Excel::import(new InscriptionUsersImport($inscription->id), $file);
         return back()->with('success', 'Se actualizron las notas');

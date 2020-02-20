@@ -23,7 +23,7 @@ class TipoCourseController extends Controller
     public function index(Request $request)
     {
         $type_course = DB::table('type_courses')
-        ->where('state','=',0)
+        ->where('state','=',1)
         ->get();
 
         return view('type_courses.index',compact('type_course'));

@@ -14,7 +14,9 @@
             <div class="pull-right">
                 @can('participant-create')
                     <a class="btn btn-default" href="{{ route('participants.create') }}"> Formato</a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants"> Asignación masiva</button>
+                    <a class="btn btn-default" href="{{ route('participants.export')}}"> Exportar Participante</a>
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParticipants">Asignación masiva</button>
                     <a class="btn btn-success" href="{{ route('participants.create') }}"> Crear nuevo participante</a>
                 @endcan
             </div>
@@ -102,11 +104,11 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Registro masivo de participantes</h4>
                 </div>
-                <form action="{{ route('participants.edit', ['id' => Request::segment(2)]) }}" enctype="multipart/form-data" method="post" >
+                <form action="{{ route('participants.import')}}" enctype="multipart/form-data" method="post" >
                     <div class="modal-body">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="file_up">Archivo</label>
+                            <label for="file_up">Asignacion Masiva</label>
                             <input id="file_up" name="file_up" type="file" accept=".xlsx">
                             <p class="help-block">Subir archivos con formato .xlsx</p>
                         </div>
