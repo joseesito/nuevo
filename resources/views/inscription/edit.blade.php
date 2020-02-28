@@ -20,7 +20,7 @@
           <h3 class="box-title">Editar Programacón</h3>
         </div>
         {!! Form::model($inscription, ['route' => ['inscriptions.update', $inscription->id], 'method' => 'PUT','id'=>'form_Inscription' ,'class' => 'form-horizontal']) !!}
-        @include('Inscription.partials.form')
+        @include('inscription.partials.form')
         {!! Form::close() !!}
       </div>
     </div>

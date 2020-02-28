@@ -4,7 +4,7 @@ return [
 
    //tituloss
 
-    'title' => 'AdminLTE 2',
+    'title' => 'Southern',
 
     'title_prefix' => '',
 
@@ -78,7 +78,7 @@ return [
             'url' => 'courses',
             'icon' => 'fa fa-list-alt"'
         ],
-      
+
         [
             'text' => 'Compañias',
             'url' => 'companies',

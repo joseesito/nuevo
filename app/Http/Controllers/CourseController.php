@@ -40,6 +40,7 @@ class CourseController extends Controller
 
         $fields = request()->validate([
             'name' => 'required',
+            'module' => 'required',
             'hours' => 'required|digits_between:1,3',
             'grade_min' => 'required|numeric|digits_between:1,2|min:14|max:20',
         ]);
@@ -73,6 +74,7 @@ class CourseController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'hours' => 'required',
+            'module' => 'required',
             'validity' => 'required',
             'type_validity' =>'required|min:1',
 

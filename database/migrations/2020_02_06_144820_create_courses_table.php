@@ -24,6 +24,7 @@ class CreateCoursesTable extends Migration
             $table->string('grade_min');
             $table->decimal('price',6,2)->nullable();
             $table->string('free')->default(0);
+            $table->string('module');
             $table->string('validity');
             $table->string('type_validity');
             $table->string('certificate')->default(1);
