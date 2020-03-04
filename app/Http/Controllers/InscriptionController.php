@@ -298,14 +298,16 @@ class InscriptionController extends Controller
             ->select('inscription_user.*',
                 'users.document',
                 DB::raw('CONCAT(users.last_name, " ", users.name) as full_name'),
-                'companies.name as company', 'unities.name as unity')
+                DB::raw('IF(IFNULL(companies.id,-1) =  -1, inscription_user.company, companies.name) as company'),
+                'unities.name as unity')
             ->join('users', 'users.id', '=', 'inscription_user.user_id')
-            ->join('companies', 'companies.id', '=', 'inscription_user.company_id')
+            ->leftJoin('companies', 'companies.id', '=', 'inscription_user.company_id')
             ->join('unities', 'unities.id', '=', 'users.unity_id')
             ->where('inscription_user.inscription_id', $inscription->id)
             ->whereIn('inscription_user.state', [1,2])
         ->get();
 
+        // dd($participants);
         return view('inscription.grade',compact('inscription', 'participants'));
     }
 

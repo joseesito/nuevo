@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Souther')
+@section('title', 'Southern')
 
 @section('content_header')
 @endsection

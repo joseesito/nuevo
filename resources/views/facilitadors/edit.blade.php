@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'Editar Facilitador')
 
 @section('content_header')
 @stop
@@ -62,7 +62,7 @@
         {!! Form::text('document', null, array('placeholder' => 'document','class' => 'form-control')) !!}
         </div>
         </div>
-    
+
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Email:</strong>
@@ -81,7 +81,7 @@
             {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
         </div>
     </div>
-    
+
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
         <button type="submit" class="btn btn-primary btn_submit_register">Agregar</button>
     </div>

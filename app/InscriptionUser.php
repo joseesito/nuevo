@@ -10,7 +10,7 @@ class InscriptionUser extends Model
 
     protected $fillable = [
         'inscription_id', 'user_id', 'assistance',
-        'grade_min', 'grade', 'company_id', 'unity_id',
+        'grade_min', 'grade', 'company_id', 'unity_id', 'company',
         'user_created', 'user_modified', 'user_deleted'
     ];
 }

@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'Home')
 
 @section('content_header')
-    <h1>Bienvenid!</h1>
-@stop
+    <h1>Bienvenido!</h1>
+@endsection
 
 @section('content')
     <p>Usuario Logueado!</p>
-@stop
+@endsection

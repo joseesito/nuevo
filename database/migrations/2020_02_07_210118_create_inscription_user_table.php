@@ -26,7 +26,7 @@ class CreateInscriptionUserTable extends Migration
             $table->unsignedSmallInteger('grade_min');
             $table->unsignedSmallInteger('grade_start')->nullable();
             $table->string('type');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->unsignedBigInteger('unity_id');
             $table->string('company')->nullable();
             $table->string('state',1)->default('1');

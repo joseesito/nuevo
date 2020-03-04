@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Souther')
+@section('title', 'Southern')
 
 @section('content_header')
 @stop
@@ -48,14 +48,11 @@
           </div>
           @endif
 
-
-
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
     @endif
-
 
     <table class="table table-bordered">
         <tr>
@@ -119,6 +116,5 @@
 	    </tr>
 	    @endforeach
     </table>
-
 
 @stop
