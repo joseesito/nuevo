@@ -19,7 +19,7 @@ class CourseController extends Controller
     {
         $courses = DB::table('courses')
             ->select('courses.id','courses.name','courses.hours', 'courses.type_course_id',
-                'type_courses.name as name_type_course','courses.validity',
+                'type_courses.name as name_type_course','courses.validity', 'courses.module',
                 'courses.type_validity','courses.grade_min')
             ->join('type_courses','type_courses.id','=','courses.type_course_id')
             ->get();

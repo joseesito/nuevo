@@ -80,17 +80,14 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-
-{{--                        @if (Route::has('register'))--}}
-{{--                            <a href="{{ route('register') }}">Registrar</a>--}}
-{{--                        @endif--}}
+                        <a href="{{ route('login') }}">Iniciar Sesión</a>
                     @endauth
+                    <a href="{{ url('/certificado') }}">Certificado</a>
                 </div>
             @endif
 
             <div class="content">
-                <div class="banner"></div>
+                <div class="banner">hola mundo</div>
             </div>
         </div>
     </body>

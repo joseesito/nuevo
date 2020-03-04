@@ -60,17 +60,18 @@
     <table class="table table-bordered">
         <tr>
             <th>Curso</th>
+            <th>Modulo</th>
             <th>Tipo Curso</th>
             <th>Horas</th>
             <th>Nota minima</th>
             <th>Vigencia</th>
             <th>estado</th>
-
-            <th width="280px">Acciones</th>
+            <th nowrap>Acciones</th>
         </tr>
 	    @foreach ($courses as $course)
 	    <tr>
 	        <td>{{ $course->name }}</td>
+	        <td>{{ $course->module }}</td>
 	        <td>{{ $course->name_type_course }}</td>
             <td>{{ $course->hours }}</td>
             <td>{{ $course->grade_min}}</td>
@@ -102,7 +103,7 @@
                     <span class="label bg-green">Desactivado</span>
                 @endif
             </td>
-	        <td>
+	        <td nowrap>
                 <form action="{{ route('courses.destroy',$course->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('courses.show',$course->id) }}">Mostrar</a>
                     @can('course-edit')

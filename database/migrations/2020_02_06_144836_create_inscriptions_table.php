@@ -44,6 +44,7 @@ class CreateInscriptionsTable extends Migration
             $table->string('grade_min')->nullable();
             $table->decimal('price',6,2)->nullable();
             $table->string('free')->nullable();
+            $table->string('module')->nullable();
             $table->string('validity')->nullable();
             $table->string('type_validity')->nullable();
             $table->string('certificate')->nullable();

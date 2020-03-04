@@ -28,6 +28,7 @@ class CreateInscriptionUserTable extends Migration
             $table->string('type');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('unity_id');
+            $table->string('company')->nullable();
             $table->string('state',1)->default('1');
             $table->unsignedBigInteger('user_created');
             $table->unsignedBigInteger('user_modified');

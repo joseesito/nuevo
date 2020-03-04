@@ -17,10 +17,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('user-list-excel', 'UserController@exportExcel')->name('users.excel');
-///participants','ParticipantController@index
 
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+/**
+ *
+ * ruta de los certificados
+ *
+ **/
+
+
+Route::get('/certificado', 'CertificateController@index')->name('certificate');
+Route::post('/certificado', 'CertificateController@certificate')->name('certificate');
+
+Route::get('user-list-excel', 'UserController@exportExcel')->name('users.excel');
 
 
 Route::group(['middleware' => ['auth']], function() {
@@ -49,11 +60,11 @@ Route::group(['middleware' => ['auth']], function() {
 
     /**
      *
-     * rutas de inscription
+     * rutas de usuarios
      *
     **/
 
-    
+
     Route::get('participants/export-excel','ParticipantController@export')->name('participants.export');
     Route::post('participants/import-excel','ParticipantController@import')->name('participants.import');
     Route::resource('users','UserController');

@@ -48,7 +48,7 @@ class InscriptionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostrar el formulario para la creacio nde .
      *
      * @return \Illuminate\Http\Response
      */
@@ -109,6 +109,7 @@ class InscriptionController extends Controller
         $inscription->grade_min=$course->grade_min;
         $inscription->price=$course->price;
         $inscription->free=$course->free;
+        $inscription->module=$course->module;
         $inscription->certificate=$course->certificate;
         $inscription->validity=$course->validity;
 
@@ -159,6 +160,7 @@ class InscriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
         $fields = $this->validate($request ,[
@@ -182,7 +184,6 @@ class InscriptionController extends Controller
             ->first();
 
         $inscription = Inscription::find($id);
-        // dd($course);
         $inscription->course_id = $request->course_id;
         $inscription->location_id = $request->location_id;
         $inscription->slot=$request->slot;
@@ -193,22 +194,21 @@ class InscriptionController extends Controller
         $inscription->end_date = $fields['start_date'];
         $inscription->unity_id = $user->unity_id;
 
-            $inscription->hours=$course->hours;
-            $inscription->name=$course->name;
-            $inscription->grade_min=$course->grade_min;
-            $inscription->price=$course->price;
-            $inscription->free=$course->free;
-            $inscription->certificate=$course->certificate;
-            $inscription->validity=$course->validity;
+        $inscription->hours=$course->hours;
+        $inscription->name=$course->name;
+        $inscription->grade_min=$course->grade_min;
+        $inscription->price=$course->price;
+        $inscription->free=$course->free;
+        $inscription->module=$course->module;
+        $inscription->certificate=$course->certificate;
+        $inscription->validity=$course->validity;
+        $inscription->type_validity=$course->type_validity;
+        $inscription->save();
 
-            $inscription->type_validity=$course->type_validity;
-
-            $inscription->save();
-
-            return redirect()
-                ->route('inscriptions.index')
-                ->with('Mensaje','El curso: '. $inscription->name.
-                ' en la hora: '.$inscription->time.' fue guardado.');
+        return redirect()
+            ->route('inscriptions.index')
+            ->with('Mensaje','El curso: '. $inscription->name.
+            ' en la hora: '.$inscription->time.' fue guardado.');
 
     }
     /**

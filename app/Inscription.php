@@ -9,12 +9,12 @@ class Inscription extends Model
 {
     protected $fillable = [
         'course_id','location_id','start_date','end_date','address','time','slot',
-        'state', 'user_id', 'name', 'price', 'hours',
+        'state', 'user_id', 'name', 'price', 'hours', 'module',
     ];
     protected $hidden = [
         'created_at','updated_at'
     ];
-    
+
     protected $dates = [
       'start_date', 'end_date',
     ];

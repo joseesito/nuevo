@@ -22,16 +22,22 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-xs-12 col-sm-4">
         <div class="form-group">
             <label>Horas:</label>
             <input type="number" name="hours" class="form-control" value="{{ old('hours', $course->hours) }}" placeholder="Ingrese Dirección">
         </div>
     </div>
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-xs-12 col-sm-4">
         <div class="form-group">
             <label>Nota Minima:</label>
             <input type="number" name="grade_min" class="form-control" value="{{ old('grade_min', $course->grade_min) }}" placeholder="Ingrese Nota Minima">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+            <label>Modulo:</label>
+            <input type="number" name="module" class="form-control" value="{{ old('module', $course->module) }}" placeholder="Ingrese el modulo del curso">
         </div>
     </div>
 </div>
