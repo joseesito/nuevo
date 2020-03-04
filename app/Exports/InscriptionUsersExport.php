@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\InscriptionUser;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -33,10 +34,10 @@ class InscriptionUsersExport implements FromQuery, WithHeadings, ShouldAutoSize,
                 'users.area',
                 'users.management',
                 'companies.ruc',
-                'companies.name as company',
+                DB::raw('IF(IFNULL(companies.id,-1) =  -1, inscription_user.company, companies.name) as company'),
                 'inscription_user.grade')
             ->join('users', 'users.id', '=', 'inscription_user.user_id')
-            ->join('companies', 'companies.id', '=', 'inscription_user.company_id')
+            ->leftJoin('companies', 'companies.id', '=', 'inscription_user.company_id')
             ->where('inscription_user.inscription_id', $this->id)
             ->whereIn('inscription_user.state', [1,2]);
         return $list;

@@ -39,6 +39,7 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
         * inicializamos la variables creacion de usuarios
         */
         $company_id = null;
+        $company_name = $row['empresa'];
         $unity_id = $fac->unity_id;
         $user_created = $fac->id;
 
@@ -48,6 +49,7 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
 
         if ($company->exists()) {
             $company_id = $company->first()->id;
+            $company_name = $company->first()->name;
         }
 
         if (strlen(trim($row['dnidocumento'])) < 8 || trim($row['dnidocumento']) == '' ) {
@@ -96,7 +98,7 @@ class InscriptionUsersImport implements OnEachRow, WithHeadingRow
                     'type' => 0,
                     'company_id' => $company_id,
                     'unity_id' => $unity_id,
-                    'company' => $row['empresa'],
+                    'company' => $company_name,
                     'user_modified' => $user_created,
                 ]
             );
