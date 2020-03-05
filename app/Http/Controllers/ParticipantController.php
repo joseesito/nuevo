@@ -34,7 +34,7 @@ class ParticipantController extends Controller
             'users.state', 'users.management',
             'companies.name as company', 'unities.name as unity',  'users.email')
             ->join('model_has_roles','users.id','=','model_has_roles.model_id')
-            ->join('companies', 'companies.id', '=', 'users.company_id')
+            ->leftJoin('companies', 'companies.id', '=', 'users.company_id')
             ->join('unities', 'unities.id', '=', 'users.unity_id')
             ->where('model_has_roles.role_id', 2)
             ->orderBy('id','DESC')->get();

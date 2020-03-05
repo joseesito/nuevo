@@ -15,7 +15,9 @@ class User extends Authenticatable
 
 
     protected $fillable = [
-        'name', 'email', 'password','company_id','unity_id','type_document','document','last_name', 'position', 'area', 'management',
+        'name', 'email', 'password',
+        'company_id','unity_id','type_document','document',
+        'last_name', 'position', 'area', 'management', 'send_email'
     ];
 
 
@@ -46,9 +48,10 @@ class User extends Authenticatable
         return $this->belongsTo('App/Company');
     }
 
-    /*
+    /**
      * PARTCIPNTES
      */
+
     public function userInscriptions()
     {
         return $this->belongsToMany(Inscription::class)->withTimestamps();

@@ -17,6 +17,7 @@ class CourseTableSeeder extends Seeder
             'type_course_id'=> 1,
             'name'=> 'IPERC',
             'hours'=> '4',
+            'module'=> '1',
             'grade_min'=> '14',
             'validity' => '1',
             'type_validity'=> '3',

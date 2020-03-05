@@ -84,7 +84,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        
+
         $company =Company::pluck('name','id');
         $unity = Unity::pluck('name','id');
         $user = User::find($id);

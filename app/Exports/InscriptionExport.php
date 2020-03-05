@@ -27,16 +27,17 @@ class InscriptionExport implements FromQuery, WithHeadings, ShouldAutoSize, With
     {
         return User::query()
             ->select(
-                DB::raw('if(users.type_document = 1,"DNI","PASAPORTE")')
-
-                ,'users.document',
-            'users.last_name','users.name',
-            'users.position','users.area',
-            'users.management','companies.ruc as ruc',
-            'companies.name as company','unities.name as unity'
+                DB::raw('if(users.type_document = 1,"DNI","PASAPORTE")'),
+                'users.document',
+                'users.last_name','users.name',
+                'users.position','users.area',
+                'users.management',
+                'companies.ruc as ruc',
+                DB::raw('IF(IFNULL(companies.id, -1) =  -1, " ", companies.name) as company'),
+                'companies.name as company','unities.name as unity', 'users.send_email'
             )
             ->join('model_has_roles','users.id','=','model_has_roles.model_id')
-            ->join('companies', 'companies.id', '=', 'users.company_id')
+            ->leftJoin('companies', 'companies.id', '=', 'users.company_id')
             ->join('unities', 'unities.id', '=', 'users.unity_id')
             ->where('model_has_roles.role_id', 2)
             ->whereIn('users.state', [1,2]);
@@ -58,9 +59,9 @@ class InscriptionExport implements FromQuery, WithHeadings, ShouldAutoSize, With
             'Ruc',
             'Empresa',
             'Unidad_Minera',
+            'Correo Envio',
         ];
     }
-
 
     /**
      * @inheritDoc
@@ -83,13 +84,14 @@ class InscriptionExport implements FromQuery, WithHeadings, ShouldAutoSize, With
 
         $styleArray = [
             'font' => [
-                'bold' => false,
-            ]
+                'bold' => true,
+            ],
+            'color' => ['rgb' => '87212E']
         ];
 
         return [
             AfterSheet::class => function (AfterSheet $event) use($styleArray) {
-                $event->sheet->getStyle('A1:I1')->applyFromArray($styleArray);
+                $event->sheet->getStyle('A1:L1')->applyFromArray($styleArray);
 
             },
         ];

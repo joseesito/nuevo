@@ -54,8 +54,7 @@ class InscriptionImport implements OnEachRow, WithHeadingRow
             return redirect()->back()->with('Mensaje2','El tipo documento del usuario :  '. $row['nombres'].'  debe de  ser DNI o PASAPORTE');
         }
 
-        if($company->exists() && $unity->exists()) {
-            $company_id = $company->first()->id;
+        if($unity->exists()) {
             $unity_id = $unity->first()->id;
 
             // verificamos si exsite el participante
@@ -73,6 +72,7 @@ class InscriptionImport implements OnEachRow, WithHeadingRow
                     'management' => $row['gerencia'],
                     'company_id' => $company_id,
                     'unity_id' => $unity_id,
+                    'send_email' => $row['correo_envio'],
                     'user_modified' => $user_created,
                 ]);
 
@@ -87,20 +87,14 @@ class InscriptionImport implements OnEachRow, WithHeadingRow
                     'area' => $row['area'],
                     'management' => $row['gerencia'],
                     'company_id' => $company_id,
+                    'send_email' => $row['correo_envio'],
                     'unity_id' => $unity_id,
                     'user_created' => $user_created,
                 ]);
                 $part->assignRole('participante');
             }
         } else {
-            if( !$unity->exists()){
-                $mensaje = 'La Unidad  con nombre ' .$row['unidad_minera'].' no existe';
-            } elseif( !$company->exists()){
-                $mensaje = 'La empresa  con Ruc ' .$row['ruc'].' y nombre'. $row['empresa'].' no existe';
-            } else{
-                $mensaje = 'La empresa  con Ruc ' .$row['ruc'].' y nombre'. $row['empresa'].
-                ' no existe'.'La Unidad  con nombre ' .$row['unidad_minera'].' no existe';
-            }
+            $mensaje = 'La Unidad  con nombre ' .$row['unidad_minera'].' no existe';
             return redirect()->back()->with('Mensaje2',$mensaje);
         }
     }

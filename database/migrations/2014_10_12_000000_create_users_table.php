@@ -13,8 +13,6 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-
-
         Schema::create('companies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('ruc')->unique();
@@ -56,6 +54,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('image')->nullable();
             $table->string('state')->default(1);
+            $table->string('send_email')->nullable();
             $table->bigInteger('user_created')->nullable();
             $table->bigInteger('user_modified')->nullable();
             $table->bigInteger('user_deleted')->nullable();
