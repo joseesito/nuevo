@@ -29,7 +29,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/certificado', 'CertificateController@index')->name('certificate');
-Route::post('/certificado', 'CertificateController@certificate')->name('certificate');
+Route::post('/certificado', 'CertificateController@list_certificate')->name('certificate.list');
+Route::get('/certificado/{inscription_user}/export', 'CertificateController@certificate')->name('certificate.export');
 
 Route::get('user-list-excel', 'UserController@exportExcel')->name('users.excel');
 

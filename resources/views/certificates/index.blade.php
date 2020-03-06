@@ -101,7 +101,7 @@
                         Buscar Certificado
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('certificate') }}" method="post" class="form-inline">
+                        <form action="{{ route('certificate.list') }}" method="post" class="form-inline">
                             {{ csrf_field() }}
                             <input name="doc" class="form-control mr-sm-3" type="search" placeholder="Ingrese su Documento" aria-label="Search" value="{{ old('doc', $doc) }}">
                             <button class="btn btn-primary my-2 my-sm-0" type="submit">Buscar</button>
@@ -115,22 +115,25 @@
                                 <th>Dni/Documento</th>
                                 <th>Partcipante</th>
                                 <th>Curso</th>
-                                <th>Valido Desde</th>
-                                <th>Valido Hasta</th>
+                                <th>Nota</th>
+                                <th>Fecha</th>
                                 <th>Certificado</th>
                             </tr>
                             </thead>
                             <tbody>
                             @forelse($query as $certificate)
-
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <th>{{ $certificate->document }}</th>
-                                    <th>{{ $certificate->last_name }} {{ $certificate->name  }}</th>
+                                    <th>{{ $certificate->last_name }} {{ $certificate->name }}</th>
                                     <th>{{ $certificate->course }}</th>
+                                    <th>{{ $certificate->grade }}</th>
                                     <td>{{ $certificate->start_date }}</td>
-                                    <td>{{ $certificate->start_date }}</td>
-                                    <td><a href="#" class="btn btn-sm btn-outline-success">certificado</a></td>
+                                    @if($certificate->approved == 1)
+                                        <td><a href="{{ route('certificate.export', $certificate->id) }}" class="btn btn-sm btn-outline-success">certificado</a></td>
+                                    @else
+                                        <td class="text-danger">Desaprobado</td>
+                                    @endif
                                 </tr>
                             @empty
                                 <tr>
@@ -139,12 +142,10 @@
                             @endforelse
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 </body>

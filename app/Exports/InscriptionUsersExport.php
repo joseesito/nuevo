@@ -35,7 +35,10 @@ class InscriptionUsersExport implements FromQuery, WithHeadings, ShouldAutoSize,
                 'users.management',
                 'companies.ruc',
                 DB::raw('IF(IFNULL(companies.id,-1) =  -1, inscription_user.company, companies.name) as company'),
-                'inscription_user.grade')
+                'inscription_user.grade',
+                'users.send_email'
+
+                )
             ->join('users', 'users.id', '=', 'inscription_user.user_id')
             ->leftJoin('companies', 'companies.id', '=', 'inscription_user.company_id')
             ->where('inscription_user.inscription_id', $this->id)
@@ -58,6 +61,7 @@ class InscriptionUsersExport implements FromQuery, WithHeadings, ShouldAutoSize,
             'Ruc',
             'Empresa',
             'Nota',
+            'Correo Envio',
         ];
     }
 
