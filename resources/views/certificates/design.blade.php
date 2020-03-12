@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Certificado Perurail</title>
+    <title>Certificado Southern</title>
 
     <style>
 
@@ -32,7 +32,8 @@
             position: absolute;
             top: 50px;
             left: 90%;
-            color: rgba(252, 243, 249, 0.81);
+            font-weight: bold;
+            color: rgb(252, 243, 249);
         }
 
         div.nombre{
@@ -42,10 +43,24 @@
             left: 11%;
             right: 0;
             height: auto;
-            width: 84%;
+            width: 78%;
             color:#373435;
             top: 225px;
             font-size: 47px;
+            font-weight: 700;
+        }
+
+        div.nombre-l{
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 10%;
+            right: 0;
+            height: auto;
+            width: 80%;
+            color:#373435;
+            top: 200px;
+            font-size: 42px;
             font-weight: 700;
         }
 
@@ -58,7 +73,7 @@
             height: auto;
             width: 70%;
             color: #373435;
-            top: 308px;
+            top: 312px;
             font-size: 36px;
             font-weight: 600;
         }
@@ -67,7 +82,7 @@
             position: absolute;
             margin-left: auto;
             margin-right: auto;
-            top: 430px;
+            top: 450px;
             left: 5%;
             right: 0;
             height: auto;
@@ -82,13 +97,13 @@
             position: absolute;
             margin-left: auto;
             margin-right: auto;
-            top: 525px;
+            top: 430px;
             left: 5%;
             right: 0;
             height: auto;
             width: 90%;
             font-weight: bold;
-            font-size: 37px;
+            font-size: 40px;
             color: rgb(135, 33, 46);
         }
 
@@ -166,22 +181,33 @@
 <body>
 
 {{-- for para uno o mas certificados --}}
-    <div style="position: absolute; left: 0; top: -265px; right: 0; bottom: 0px; text-align: center;z-index: -1000;">
-        <img src="https://www.ighgroup.com/southern/img/certificate/certificado.png" style="width: 100%; margin-top: 25%;">
-    </div>
-    <div class="papa">
-        <div class="codigo">SO-{{ str_pad($inscriptionUser->id, 8, "0", STR_PAD_LEFT) }}</div>
-        <div class="nombre">{{ $inscriptionUser->user->last_name }} {{ $inscriptionUser->user->name }}</div>
-        <div class="dni">{{ $inscriptionUser->user->document }}</div>
-        @if(true)
-            <div class="curso">{{ $inscriptionUser->inscription->name }}</div>
-        @else
-            <div class="curso-xl">{{ $inscriptionUser->inscription->name }}</div>
-        @endif
-        <div class="fecha">Con una duración de
-            {{ str_pad($inscriptionUser->inscription->hours, 2, "0", STR_PAD_LEFT) }} horas lectivas.
-            El día: {{ $date }}</div>
-    </div>
+<div style="position: absolute; left: 0; top: -265px; right: 0; bottom: 0px; text-align: center;z-index: -1000;">
+    <img src="{{ public_path().'/img/certificate/certificado.png' }}" style="width: 100%; margin-top: 25%;">
+</div>
+<div class="papa">
+    <div class="codigo">SO-{{ str_pad($inscriptionUser->id, 8, "0", STR_PAD_LEFT) }}</div>
+
+    @if(strlen($inscriptionUser->user->last_name." ".$inscriptionUser->user->name) > 33)
+        <div class="nombre-l">
+            {{ $inscriptionUser->user->last_name }}<br>
+            {{ $inscriptionUser->user->name }}
+        </div>
+    @else
+        <div class="nombre">
+            {{ $inscriptionUser->user->last_name }} {{ $inscriptionUser->user->name }}
+        </div>
+    @endif
+
+    <div class="dni">{{ $inscriptionUser->user->document }}</div>
+    @if(strlen($inscriptionUser->inscription->name) < 10)
+        <div class="curso">{{ $inscriptionUser->inscription->name }}</div>
+    @else
+        <div class="curso-xl">{{ $inscriptionUser->inscription->name }}</div>
+    @endif
+    <div class="fecha">Con una duraci贸n de
+        {{ str_pad($inscriptionUser->inscription->hours, 2, "0", STR_PAD_LEFT) }} horas lectivas.
+        El d铆a: {{ $date }}</div>
+</div>
 
 {{-- Fin for --}}
 </body>
