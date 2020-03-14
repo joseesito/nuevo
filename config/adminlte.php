@@ -89,6 +89,13 @@ return [
             'url' => 'facilitadors',
             'icon' => 'fas fa-fw fa fa-users'
         ],
+        [
+            'text' => 'Exportaciones',
+            
+            'url' => 'inscription/listexportsgrade',
+            'icon' => 'far fa-file'
+        ],
+
 
 
         'PRIVILEGIOS',

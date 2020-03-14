@@ -72,4 +72,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('participants','ParticipantController');
     Route::resource('facilitadors','FacilitadorController');
 
+    //rutas Export
+
+    Route::get('inscription/listexportsgrade','InscriptionController@listexportGrade')->name('listexports.grade');
+    Route::get('inscription/exportsgrade','InscriptionController@exportGrade')->name('exports.grade');
+
 });

@@ -16,6 +16,7 @@ use App\User;
 use Excel;
 use App\Imports\InscriptionUsersImport;
 use App\Exports\InscriptionUsersExport;
+use App\Exports\GradeExport;
 
 class InscriptionController extends Controller
 {
@@ -287,12 +288,29 @@ class InscriptionController extends Controller
         return redirect()->route('inscriptions.grade', compact('inscription'))
             ->with('success', 'Se registrarón'. $participants->count(). ' participante(s');
     }
+    public function listexportGrade(Inscription $inscription){
+
+        return view('reports.exportsgrade',compact('inscription'));
+    }
+    public function exportGrade(Inscription $inscription){
+        $inscription=Inscription::all();
+        
+        $now =Carbon::now();
+        $date=$now->format('Y-m-d');
+        $inscription->start_date=$date;
+        
+        //ponemos un nombre
+        
+        $file = 'Consolidado'.'.xlsx';
+        return Excel::download(new GradeExport($inscription->start_date), $file);
+        
+    }
 
     public function grade(Inscription $inscription) {
 
         // Recuperamos el usuario logueado
         $user = Auth::user();
-
+        
         // relacion de participantes inscritos en un determinada "$inscription"
         $participants = DB::table('inscription_user')
             ->select('inscription_user.*',
@@ -312,7 +330,7 @@ class InscriptionController extends Controller
     }
 
     public function exportExcel(Inscription $inscription) {
-
+        
         // nombre del archivo a descargar
         $file = $inscription->id.' '.$inscription->name.'.xlsx';
         return Excel::download(new InscriptionUsersExport($inscription->id), $file);
@@ -324,4 +342,6 @@ class InscriptionController extends Controller
         Excel::import(new InscriptionUsersImport($inscription->id), $file);
         return back()->with('success', 'Se actualizron las notas');
     }
+
+    
 }
